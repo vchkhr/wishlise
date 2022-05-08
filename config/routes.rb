@@ -9,4 +9,6 @@ Rails.application.routes.draw do
     get 'sign_up', to: 'devise/registrations#new'
     get 'reset_password', to: 'devise/passwords#new'
   end
+
+  get 'logout', to: 'sessions#destroy'
 end
