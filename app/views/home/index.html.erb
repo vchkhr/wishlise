@@ -1,8 +1,7 @@
-<p>Wishlise</p>
-
-<% if current_user %>
-  <p><%= current_user.inspect %></p>
-  <%= link_to "Exit", logout_path %>
-<% else %>
-  <%= link_to "Login", sign_in_path %>
+<% unless current_user %>
+  <div class="welcome-screen">
+    <h3>Welcome to Wishlise!</h3>
+    <p>With Wishlise you can add items to your wish list and get what you want for the holidays.</p>
+    <p><%= link_to "Log in", sign_in_path %> or <%= link_to "Sign up", sign_up_path %> to try it now!</p>
+  </div>
 <% end %>

@@ -31,6 +31,15 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Devise is a flexible authentication solution for Rails based on Warden
 gem 'devise'
 
+# Provides Sprockets implementation for Rails 4.x (and beyond) Asset Pipeline
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+
+# jQuery! For Rails! So great
+gem 'jquery-rails'
+
+# Bootstrap 5 ruby gem for Ruby on Rails (Sprockets) and Hanami (formerly Lotus)
+gem 'bootstrap', '~> 5.1.3'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -2,7 +2,10 @@
 <html>
   <head>
     <title>Wishlise</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,9 +14,10 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    
+    <%= render 'home/navigation.html.erb' %>
+
+    <%= render 'home/alerts.html.erb' %>
+  
     <%= yield %>
   </body>
 </html>
