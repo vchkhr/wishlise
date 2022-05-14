@@ -1,0 +1,49 @@
+<%= form_with(model: profile) do |f| %>
+  <% if profile.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger text-left" role="alert">
+      <p class="fw-bold">Please fix this errors and try again:</p>
+      <ul>
+        <% profile.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-floating mb-1">
+    <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control", placeholder: "Jack", required: "true" %>
+    <%= f.label :first_name, "First name or nickname" %><br />
+  </div>
+  
+  <div class="field form-floating mb-1">
+    <%= f.text_field :last_name, autocomplete: "last_name", class: "form-control", placeholder: "London" %>
+    <%= f.label :last_name, "Last name (optional)" %><br />
+  </div>
+  
+  <div class="field form-floating mb-4">
+    <%= f.select :visibility_cd, Profile.visibilities.hash {|v| [ v.value, v.key ]}, {selected: Profile.visibilities.hash.values.first}, class: "form-select", required: "true" %>
+    <%= f.label :visibility_cd, "Profile visibility" %>
+    <p class="text-muted mt-0">private - only you can see profile info<br>friends - your friends can see profile<br>public - everyone can see profile</p>
+  </div>
+  
+  <div class="field form-floating mb-4">
+    <%= f.date_field :dob, autocomplete: "dob", class: "form-control mb-0" %>
+    <%= f.label :dob, "Date of birth (optional)" %><br />
+    <p class="text-muted mt-0">We will remind your friends 7 days before and on the birthday (according to your public settings on that date)</p>
+  </div>
+
+  <div class="field form-floating mb-1">
+    <%= f.text_field :description, autocomplete: "description", class: "form-control", placeholder: "I like to..." %>
+    <%= f.label :description, "Some words about you (optional)" %><br />
+  </div>
+  
+  <div class="field form-floating mb-1">
+    <%= f.url_field :messenger_url, autocomplete: "messenger_url", class: "form-control", placeholder: "https://messenger.com/" %>
+    <%= f.label :messenger_url, "Messenger URL (optional)" %><br />
+    <p class="text-muted mt-0">We will show this link on your birthday so that your friends can congratulate you where you can see for sure. It can be a link to Telegram, Messenger or any other place</p>
+  </div>
+
+  <div class="actions mt-4">
+    <%= f.submit "That's it!", class: "w-100 btn btn-lg btn-success" %>
+  </div>
+<% end %>

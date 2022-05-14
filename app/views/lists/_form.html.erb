@@ -1,0 +1,31 @@
+<%= form_with(model: list) do |f| %>
+  <% if list.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger text-left" role="alert">
+      <p class="fw-bold">Please fix this errors and try again:</p>
+      <ul>
+        <% list.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-floating mb-1">
+    <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "Title", required: "true" %>
+    <%= f.label :title %><br />
+  </div>
+  
+  <div class="field form-floating mb-4">
+    <%= f.select :emoji_cd, List.emojis.hash {|e| [ e.value, e.key ]}, {selected: List.emojis.hash.values.first}, class: "form-select", required: "true" %>
+    <%= f.label :emoji_cd, "Emoji" %>
+  </div>
+
+  <div class="field form-floating mb-4">
+    <%= f.select :visibility_cd, List.visibilities.hash {|v| [ v.value, v.key ]}, {selected: List.visibilities.hash.values.first}, class: "form-select", required: "true" %>
+    <%= f.label :visibility_cd, "Visibility" %>
+  </div>
+
+  <div class="actions mt-4">
+    <%= f.submit "Create a list!", class: "w-100 btn btn-lg btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+<main class="text-center form-center">
+  <%= image_tag "page-with-curl.png", alt: "", class:"mb-4", height: "57px" %>
+
+  <% if current_user.lists.empty? %>
+    <h1 class="mb-4">It's time to create your first wish list</h1>
+  <% else %>
+    <h1 class="mb-4">Let's create your new wish list</h1>
+  <% end %>
+  
+  <%= render 'form', list: @list %>
+</main>

@@ -40,6 +40,12 @@ gem 'jquery-rails'
 # Bootstrap 5 ruby gem for Ruby on Rails (Sprockets) and Hanami (formerly Lotus)
 gem 'bootstrap', '~> 5.1.3'
 
+# bootstrap_form is a Rails form builder that makes it super easy to integrate Bootstrap v5-style forms into your Rails application. 
+gem "bootstrap_form", "~> 5.0"
+
+# Unobtrusive enum-like fields for ActiveRecord and Ruby, brings enums functionality to ActiveRecord and Mongoid models (built for Rails 4+)
+gem 'simple_enum', '~> 2.3.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

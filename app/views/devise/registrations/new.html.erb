@@ -1,8 +1,8 @@
-<main class="text-center form-signin">
+<main class="text-center form-center">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
-    <%= image_tag "logo.png", alt: "", class:"mb-4", width: "72px", height: "57px" %>
+    <%= image_tag "logo.png", alt: "", class:"mb-4", height: "57px" %>
     <h1 class="h3 mb-3 fw-normal">Create an account</h1>
 
     <div class="mb-3">
@@ -27,7 +27,5 @@
     <div class="actions">
       <%= f.submit "Sign up", class: "w-100 btn btn-lg btn-primary" %>
     </div>
-
-    <p class="mt-5 mb-3 text-muted">© vchkhr.com, 2022</p>
   <% end %>
 </main>
