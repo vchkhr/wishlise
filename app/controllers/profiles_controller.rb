@@ -5,11 +5,13 @@ class ProfilesController < ApplicationController
   # GET /profiles or /profiles.json
   def index
     @profiles = Profile.all
+    authorize Profile
   end
 
   # GET /profiles/1 or /profiles/1.json
   def show
     authorize @profile
+    @lists = @profile.user.lists.publics
   end
 
   # GET /profiles/new
@@ -25,10 +27,9 @@ class ProfilesController < ApplicationController
 
   # POST /profiles or /profiles.json
   def create
-    authorize Profile
-
     @profile = Profile.new(profile_params)
     @profile.user = current_user
+    authorize @profile
 
     respond_to do |format|
       if @profile.save
@@ -59,7 +60,6 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1 or /profiles/1.json
   def destroy
     authorize @profile
-
     @profile.destroy
 
     respond_to do |format|

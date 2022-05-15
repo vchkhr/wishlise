@@ -1,16 +1,25 @@
 <div class="container">
   <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-      <%= image_tag "logo.png", alt: "", class:"bi me-2", width: "40px", height: "32px" %>
+      <%= image_tag "logo.png", alt: "", class: "bi me-2", width: "40px", height: "32px" %>
       <span class="fs-4">Wishlise</span>
     </a>
 
     <ul class="nav nav-pills">
       <% if current_user %>
         <% unless current_user.profile.nil? %>
+          <% unless current_user.lists.empty? %>
+            <%= link_to new_item_path, class: "btn btn-outline-primary" do %>
+              <%# <%= image_tag "wrapped-gift.png", alt: "" %>
+              Add new item
+            <% end %>
+          <% end %>
+
           <li class="nav-item"><%= link_to current_user.profile.first_name, edit_profile_path(current_user.profile), class: "nav-link" %></li>
         <% end %>
+
         <li class="nav-item"><%= link_to "Exit", logout_path, class: "nav-link" %></li>
+
       <% else %>
         <li class="nav-item"><%= link_to "Log in", sign_in_path, class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "Sign up", sign_up_path, class: "nav-link" %></li>

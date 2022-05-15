@@ -14,4 +14,5 @@ Rails.application.routes.draw do
 
   resources :profiles
   resources :lists
+  resources :items
 end

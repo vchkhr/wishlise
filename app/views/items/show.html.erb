@@ -1,0 +1,27 @@
+<div class="text-center">
+  <%= image_tag "wrapped-gift.png", alt: "", class: "mb-4", height: "57px" %>
+  <h1 class="mb-4"><%= @item.title %></h1>
+
+  <% if @item.list.user == current_user%>
+    <p class="text-center text-muted">visible for: <strong><%= @item.list.visibility %></strong> &bull; <%= link_to "edit info", edit_item_path(@item) %></p>
+  <% end %>
+
+  <% unless @item.description.blank? %>
+    <h5><span class="fw-light">Description:</span> <%= @item.description %></h5>
+  <% end %>
+
+  <% unless @item.price.blank? %>
+    <h6><span class="fw-light">Price:</span> <%= @item.price %></h6>
+  <% end %>
+
+  <% unless @item.url.blank? %>
+    <div class="mt-4">
+      <%= link_to "Go to the Store", @item.url, class: "btn btn-primary" %>
+      <p class="fw-light text-muted ">(external link)</p>
+    </div>
+  <% end %>
+
+  <div class="mt-4">
+    <%= link_to "Open wish list", @item.list, class: "btn btn-outline-primary" %>
+  </div>
+</div>

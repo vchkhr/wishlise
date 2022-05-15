@@ -26,10 +26,9 @@ class ListsController < ApplicationController
 
   # POST /lists or /lists.json
   def create
-    authorize List
-
     @list = List.new(list_params)
     @list.user = current_user
+    authorize @list
     
     respond_to do |format|
       if @list.save

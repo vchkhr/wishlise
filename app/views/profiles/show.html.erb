@@ -1,5 +1,5 @@
 <div class="text-center">
-  <%= image_tag "person-tipping-hand.png", alt: "", class:"mb-4", height: "57px" %>
+  <%= image_tag "person-tipping-hand.png", alt: "", class: "mb-4", height: "57px" %>
   <h1 class="mb-4"><%= @profile.full_name %></h1>
 
   <% unless @profile.description.blank? %>
@@ -11,6 +11,17 @@
   <% end %>
 
   <% unless @profile.messenger_url.blank? %>
-    <h6><%= link_to "Contact me!", @profile.messenger_url %> <span class="fw-light text-muted ">(external link)</span></h6>
+    <div class="mt-4">
+      <%= link_to "Contact me", @profile.messenger_url, class: "btn btn-primary" %>
+      <p class="fw-light text-muted ">(external link)</p>
+    </div>
+  <% end %>
+
+  <% if @lists.empty? %>
+    <p class="text-muted mt-5">No public wish lists ;(</p>
   <% end %>
 </div>
+
+<% unless @lists.empty? %>
+  <%= render partial: 'lists/album', locals: { lists: @lists, show_new_button: false } %>
+<% end %>

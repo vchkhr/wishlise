@@ -1,8 +1,4 @@
 class ListPolicy < ApplicationPolicy
-  def index?
-    user == record.user
-  end
-
   def show?
     user == record.user || record.by_link? || record.public?
   end

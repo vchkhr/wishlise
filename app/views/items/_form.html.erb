@@ -1,0 +1,41 @@
+<%= form_with(model: item) do |f| %>
+  <% if item.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger text-left" role="alert">
+      <p class="fw-bold">Please fix this errors and try again:</p>
+      <ul>
+        <% item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-floating mb-1">
+    <%= f.text_field :list_id, autofocus: true, class: "form-control", placeholder: "1", required: "true" %>
+    <%= f.label :list_id %><br />
+  </div>
+
+  <div class="field form-floating mb-1">
+    <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "Vyshyvanka", required: "true" %>
+    <%= f.label :title %><br />
+  </div>
+
+  <div class="field form-floating mb-1">
+    <%= f.text_field :description, class: "form-control", placeholder: "Color, size, or other details" %>
+    <%= f.label :description, "Description (optional)" %><br />
+  </div>
+
+  <div class="field form-floating mb-1">
+    <%= f.text_field :url, class: "form-control", placeholder: "https://store.vchkhr.com/" %>
+    <%= f.label :url, "Link (optional)" %><br />
+  </div>
+
+  <div class="field form-floating mb-1">
+    <%= f.number_field :price, class: "form-control", placeholder: "220", min: 1, step: 1 %>
+    <%= f.label :price, "Price (optional)" %><br />
+  </div>
+
+  <div class="actions mt-4">
+    <%= f.submit "Save", class: "w-100 btn btn-lg btn-primary" %>
+  </div>
+<% end %>
