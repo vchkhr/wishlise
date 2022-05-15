@@ -10,4 +10,4 @@
   <p class="text-center text-muted">No items</p>
 <% end %>
 
-<%= render partial: 'items/album', locals: { items: @list.items, show_new_button: current_user == @list.user } %>
+<%= render partial: 'items/album', locals: { items: @list.items, show_new_button: current_user == @list.user, list_id: @list.id } %>

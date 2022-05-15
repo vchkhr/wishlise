@@ -2,6 +2,10 @@
   <%= image_tag "person-tipping-hand.png", alt: "", class: "mb-4", height: "57px" %>
   <h1 class="mb-4"><%= @profile.full_name %></h1>
 
+  <% if @profile == current_user.profile %>
+    <p class="text-center text-muted">visible for: <strong><%= @profile.visibility %></strong> &bull; <%= link_to "edit info", edit_profile_path(@profile) %></p>
+  <% end %>
+
   <% unless @profile.description.blank? %>
     <h5><%= @profile.description %></h5>
   <% end %>

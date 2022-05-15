@@ -15,7 +15,7 @@
             <% end %>
           <% end %>
 
-          <li class="nav-item"><%= link_to current_user.profile.first_name, edit_profile_path(current_user.profile), class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to current_user.profile.first_name, current_user.profile, class: "nav-link" %></li>
         <% end %>
 
         <li class="nav-item"><%= link_to "Exit", logout_path, class: "nav-link" %></li>

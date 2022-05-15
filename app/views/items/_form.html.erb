@@ -10,9 +10,9 @@
     </div>
   <% end %>
 
-  <div class="field form-floating mb-1">
-    <%= f.text_field :list_id, autofocus: true, class: "form-control", placeholder: "1", required: "true" %>
-    <%= f.label :list_id %><br />
+  <div class="field form-floating mb-4">
+    <%= f.select :list_id, current_user.lists.collect {|l| [ l.title, l.id ]}, {selected: params[:list_id]}, class: "form-select", required: "true" %>
+    <%= f.label :list_id, "List" %>
   </div>
 
   <div class="field form-floating mb-1">
