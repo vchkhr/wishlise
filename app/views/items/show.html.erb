@@ -1,9 +1,13 @@
 <div class="text-center">
-  <%= image_tag "wrapped-gift.png", alt: "", class: "mb-4", height: "57px" %>
-  <h1 class="mb-4"><%= @item.title %></h1>
 
   <% if @item.list.user == current_user%>
+    <%= image_tag "wrapped-gift.png", alt: "", class: "mb-4", height: "57px" %>
+    <h1 class="mb-4"><%= @item.title %></h1>
+    
     <p class="text-center text-muted">visible for: <strong><%= @item.list.visibility %></strong> &bull; <%= link_to "edit info", edit_item_path(@item) %></p>
+  <% else %>
+    <h3><%= image_tag "wrapped-gift.png", alt: "", class: "mb-4" %> <%= @item.list.user.profile.first_name %> <span class="fw-light">dreams about...</span></h3>
+    <h1 class="mb-4"><%= @item.title %></h1>
   <% end %>
 
   <% unless @item.description.blank? %>
@@ -16,13 +20,13 @@
 
   <% unless @item.url.blank? %>
     <div class="mt-4">
-      <%= link_to "Go to the Store", @item.url, class: "btn btn-primary" %>
+      <%= link_to "Go to the Store", @item.url, class: "btn btn-primary", target: "_blank" %>
       <p class="fw-light text-muted ">(external link)</p>
     </div>
   <% end %>
 
   <div class="mt-4">
-    <%= link_to "Open wish list", @item.list, class: "btn btn-outline-primary" %>
+    <%= link_to "Open their wish list", @item.list, class: "btn btn-outline-primary" %>
   </div>
 
   <% unless @item.image_url.blank? %>
