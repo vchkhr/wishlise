@@ -1,7 +1,7 @@
 module EmojisHelper
-  def get_emoji_symbol(name)
+  def get_emoji_cd(name)
     code = case name
-    when 'birthday_cake'
+    when :birthday_cake
       '&#127874;'
     end
 

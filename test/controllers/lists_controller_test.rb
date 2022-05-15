@@ -17,7 +17,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create list" do
     assert_difference('List.count') do
-      post lists_url, params: { list: { emoji_symbol: @list.emoji_symbol, title: @list.title, user: @list.user, visibility_cd: @list.visibility_cd } }
+      post lists_url, params: { list: { emoji_cd: @list.emoji_cd, title: @list.title, user: @list.user, visibility_cd: @list.visibility_cd } }
     end
 
     assert_redirected_to list_url(List.last)
@@ -34,7 +34,7 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update list" do
-    patch list_url(@list), params: { list: { emoji_symbol: @list.emoji_symbol, title: @list.title, user: @list.user, visibility_cd: @list.visibility_cd } }
+    patch list_url(@list), params: { list: { emoji_cd: @list.emoji_cd, title: @list.title, user: @list.user, visibility_cd: @list.visibility_cd } }
     assert_redirected_to list_url(@list)
   end
 

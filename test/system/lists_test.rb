@@ -14,7 +14,7 @@ class ListsTest < ApplicationSystemTestCase
     visit lists_url
     click_on "New List"
 
-    fill_in "Emoji symbol", with: @list.emoji_symbol
+    fill_in "Emoji symbol", with: @list.emoji_cd
     fill_in "Title", with: @list.title
     fill_in "User", with: @list.user
     fill_in "Visibility cd", with: @list.visibility_cd
@@ -28,7 +28,7 @@ class ListsTest < ApplicationSystemTestCase
     visit lists_url
     click_on "Edit", match: :first
 
-    fill_in "Emoji symbol", with: @list.emoji_symbol
+    fill_in "Emoji symbol", with: @list.emoji_cd
     fill_in "Title", with: @list.title
     fill_in "User", with: @list.user
     fill_in "Visibility cd", with: @list.visibility_cd

@@ -5,6 +5,10 @@ class HomeController < ApplicationController
 
       if current_user.profile
         require_list
+
+        unless current_user.lists.empty?
+          redirect_to lists_url
+        end
       end
     end
   end

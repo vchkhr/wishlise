@@ -1,0 +1,16 @@
+$primary: #4f7cac;
+$success: #51be70;
+$warning: #ecd159;
+$danger: #c7634d;
+$info: #b9e6ff;
+
+.btn-primary,
+.btn-outline-primary:hover,
+.btn-danger,
+.btn-danger-primary:hover {
+  color: white !important;
+}
+
+.link-primary {
+  cursor: pointer;
+}

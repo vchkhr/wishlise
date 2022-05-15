@@ -3,11 +3,11 @@
 one:
   user: 
   title: MyString
-  emoji_symbol: MyString
+  emoji_cd: MyString
   visibility_cd: 1
 
 two:
   user: 
   title: MyString
-  emoji_symbol: MyString
+  emoji_cd: MyString
   visibility_cd: 1
