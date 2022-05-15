@@ -49,6 +49,9 @@ gem 'simple_enum', '~> 2.3.0'
 # Pundit provides a set of helpers which guide you in leveraging regular Ruby classes and object oriented design patterns to build a simple, robust and scalable authorization system
 gem 'pundit'
 
+# MetaInspector is a gem for web scraping purposes
+gem 'metainspector'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

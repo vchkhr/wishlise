@@ -11,7 +11,7 @@
   <% end %>
 
   <div class="field form-floating mb-4">
-    <%= f.select :list_id, current_user.lists.collect {|l| [ l.title, l.id ]}, {selected: params[:list_id]}, class: "form-select", required: "true" %>
+    <%= f.select :list_id, current_user.lists.collect {|l| [ l.title, l.id ]}, {selected: params[:list_id] || item.list&.id}, class: "form-select", required: "true" %>
     <%= f.label :list_id, "List" %>
   </div>
 
@@ -22,12 +22,13 @@
 
   <div class="field form-floating mb-1">
     <%= f.text_field :description, class: "form-control", placeholder: "Color, size, or other details" %>
-    <%= f.label :description, "Description (optional)" %><br />
+    <%= f.label :description, "Description (optional: size, color etc.)" %><br />
   </div>
 
   <div class="field form-floating mb-1">
     <%= f.text_field :url, class: "form-control", placeholder: "https://store.vchkhr.com/" %>
     <%= f.label :url, "Link (optional)" %><br />
+    <p class="text-muted mt-0">We will try to get the title, image, and price from this link.</p>
   </div>
 
   <div class="field form-floating mb-1">

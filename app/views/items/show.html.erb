@@ -24,4 +24,8 @@
   <div class="mt-4">
     <%= link_to "Open wish list", @item.list, class: "btn btn-outline-primary" %>
   </div>
+
+  <% unless @item.image_url.blank? %>
+    <%= image_tag @item.image_url, alt: @item.title, class: "rounded mx-auto d-block mt-4" %>
+  <% end %>
 </div>

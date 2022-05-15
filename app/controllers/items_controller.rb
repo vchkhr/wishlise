@@ -32,6 +32,8 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
+        GetItemInfoFromSiteJob.perform_later @item unless @item.url.empty?
+
         format.html { redirect_to list_url(@item.list), notice: "We added this item to your wish list." }
         format.json { render :show, status: :created, location: @item }
       else
@@ -47,6 +49,8 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.update(item_params)
+        GetItemInfoFromSiteJob.perform_later @item unless @item.url.empty?
+
         format.html { redirect_to item_url(@item), notice: "Item was successfully updated." }
         format.json { render :show, status: :ok, location: @item }
       else

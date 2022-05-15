@@ -4,10 +4,14 @@
       <% items.each do |item| %>
         <div class="col">
           <div class="card">
+            <% unless item.image_url.nil? %>
+              <%= image_tag item.image_url, alt: item.title, class: "bd-placeholder-img card-img-top" %>
+            <% end %>
+
             <div class="card-body">
               <h5 class="card-title"><%= link_to item.title, item, class: "card-link" %></h5>
 
-              <p class="card-text text-muted"></p>
+              <p class="card-text"><%= item.description %></p>
             </div>
           </div>
         </div>
