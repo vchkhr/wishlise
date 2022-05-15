@@ -11,7 +11,13 @@
             <div class="card-body">
               <h5 class="card-title"><%= link_to item.title, item, class: "card-link" %></h5>
 
-              <p class="card-text"><%= item.description %></p>
+              <% unless item.description.empty? %>
+                <p class="card-text">Description: <%= item.description %></p>
+              <% end %>
+
+              <% unless item.price.nil? %>
+                <p class="card-text">Price: <%= item.price %></p>
+              <% end %>
             </div>
           </div>
         </div>
