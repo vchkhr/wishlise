@@ -16,16 +16,16 @@
   </div>
   
   <div class="field form-floating mb-4">
-    <%= f.select :emoji_cd, List.emojis.hash {|e| [ e.value, e.key ]}, {selected: List.emojis.hash.values.first}, class: "form-select", required: "true" %>
+    <%= f.select :emoji_cd, List.emojis.hash {|e| [ e.value, e.key ]}, {selected: list&.emoji_cd}, class: "form-select", required: "true" %>
     <%= f.label :emoji_cd, "Emoji" %>
   </div>
 
   <div class="field form-floating mb-4">
-    <%= f.select :visibility_cd, List.visibilities.hash {|v| [ v.value, v.key ]}, {selected: List.visibilities.hash.values.first}, class: "form-select", required: "true" %>
+    <%= f.select :visibility_cd, List.visibilities.hash {|v| [ v.value, v.key ]}, {selected: list&.visibility_cd}, class: "form-select", required: "true" %>
     <%= f.label :visibility_cd, "Visibility" %>
   </div>
 
   <div class="actions mt-4">
-    <%= f.submit "Create a list!", class: "w-100 btn btn-lg btn-primary" %>
+    <%= f.submit "Save", class: "w-100 btn btn-lg btn-primary" %>
   </div>
 <% end %>

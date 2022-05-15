@@ -14,12 +14,12 @@
   </head>
 
   <body>
-    <%= render 'home/navigation.html.erb' %>
+    <%= render 'layouts/navigation.html.erb' %>
 
-    <%= render 'home/alerts.html.erb' %>
+    <%= render 'layouts/alerts.html.erb' %>
   
     <%= yield %>
 
-    <p class="mt-5 mb-3 text-muted text-center">© vchkhr.com, 2022</p>
+    <%= render 'layouts/footer.html.erb' %>
   </body>
 </html>

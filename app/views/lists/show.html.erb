@@ -1,24 +1,9 @@
-<p id="notice"><%= notice %></p>
+<h1 class="text-center"><%= get_emoji_code(@list.emoji) %> <%= @list.title %></h1>
 
-<p>
-  <strong>User:</strong>
-  <%= @list.user %>
-</p>
+<% if @list.user == current_user%>
+  <p class="text-center text-muted">visible for: <%= @list.visibility %> &bull; <%= link_to "edit info", edit_list_path(@list) %></p>
+<% else %>
+  <p class="text-center text-muted">Wish list by <%= link_to @list.user.profile.first_name, profile_path(@list.user.profile) %></p>
+<% end %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @list.title %>
-</p>
-
-<p>
-  <strong>Emoji symbol:</strong>
-  <%= @list.emoji_cd %>
-</p>
-
-<p>
-  <strong>Visibility cd:</strong>
-  <%= @list.visibility_cd %>
-</p>
-
-<%= link_to 'Edit', edit_list_path(@list) %> |
-<%= link_to 'Back', lists_path %>
+<p class="text-center text-muted">No items</p>

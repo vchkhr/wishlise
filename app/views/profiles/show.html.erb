@@ -1,39 +1,16 @@
-<p id="notice"><%= notice %></p>
+<div class="text-center">
+  <%= image_tag "person-tipping-hand.png", alt: "", class:"mb-4", height: "57px" %>
+  <h1 class="mb-4"><%= @profile.full_name %></h1>
 
-<p>
-  <strong>User:</strong>
-  <%= @profile.user_id %>
-</p>
+  <% unless @profile.description.blank? %>
+    <h5><%= @profile.description %></h5>
+  <% end %>
 
-<p>
-  <strong>First name:</strong>
-  <%= @profile.first_name %>
-</p>
+  <% unless @profile.dob.blank? %>
+    <h6><span class="fw-light">Birthday:</span> <%= @profile.dob %></h6>
+  <% end %>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @profile.last_name %>
-</p>
-
-<p>
-  <strong>Public:</strong>
-  <%= @profile.public %>
-</p>
-
-<p>
-  <strong>Dob:</strong>
-  <%= @profile.dob %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @profile.description %>
-</p>
-
-<p>
-  <strong>Messenger url:</strong>
-  <%= @profile.messenger_url %>
-</p>
-
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profiles_path %>
+  <% unless @profile.messenger_url.blank? %>
+    <h6><%= link_to "Contact me!", @profile.messenger_url %> <span class="fw-light text-muted ">(external link)</span></h6>
+  <% end %>
+</div>

@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[ show ]
   before_action :set_profile, only: %i[ show edit update destroy ]
 
   # GET /profiles or /profiles.json
@@ -9,19 +9,24 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1 or /profiles/1.json
   def show
+    authorize @profile
   end
 
   # GET /profiles/new
   def new
     @profile = Profile.new
+    authorize @profile
   end
 
   # GET /profiles/1/edit
   def edit
+    authorize @profile
   end
 
   # POST /profiles or /profiles.json
   def create
+    authorize Profile
+
     @profile = Profile.new(profile_params)
     @profile.user = current_user
 
@@ -38,9 +43,11 @@ class ProfilesController < ApplicationController
 
   # PATCH/PUT /profiles/1 or /profiles/1.json
   def update
+    authorize @profile
+
     respond_to do |format|
       if @profile.update(profile_params)
-        format.html { redirect_to profile_url(@profile), notice: "Profile was successfully updated." }
+        format.html { redirect_to edit_profile_url(@profile), notice: "We updated your profile." }
         format.json { render :show, status: :ok, location: @profile }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,6 +58,8 @@ class ProfilesController < ApplicationController
 
   # DELETE /profiles/1 or /profiles/1.json
   def destroy
+    authorize @profile
+
     @profile.destroy
 
     respond_to do |format|

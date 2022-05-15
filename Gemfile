@@ -46,6 +46,9 @@ gem "bootstrap_form", "~> 5.0"
 # Unobtrusive enum-like fields for ActiveRecord and Ruby, brings enums functionality to ActiveRecord and Mongoid models (built for Rails 4+)
 gem 'simple_enum', '~> 2.3.0'
 
+# Pundit provides a set of helpers which guide you in leveraging regular Ruby classes and object oriented design patterns to build a simple, robust and scalable authorization system
+gem 'pundit'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

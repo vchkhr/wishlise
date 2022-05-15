@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <main class="text-center form-center">
+  <div class="text-center form-center">
     <div class="field form-floating mb-1">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "name@example.com", required: "true" %>
       <%= f.label :email %><br />
@@ -29,5 +29,5 @@
     <div class="actions">
       <%= f.submit "Sign up", class: "w-100 btn btn-lg btn-primary" %>
     </div>
-  </main>
+  </div>
 <% end %>

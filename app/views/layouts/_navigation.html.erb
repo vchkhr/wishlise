@@ -7,6 +7,9 @@
 
     <ul class="nav nav-pills">
       <% if current_user %>
+        <% unless current_user.profile.nil? %>
+          <li class="nav-item"><%= link_to current_user.profile.first_name, edit_profile_path(current_user.profile), class: "nav-link" %></li>
+        <% end %>
         <li class="nav-item"><%= link_to "Exit", logout_path, class: "nav-link" %></li>
       <% else %>
         <li class="nav-item"><%= link_to "Log in", sign_in_path, class: "nav-link" %></li>

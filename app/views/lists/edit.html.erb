@@ -1,6 +1,8 @@
-<h1>Editing List</h1>
+<div class="text-center form-center">
+  <%= image_tag "page-with-curl.png", alt: "", class:"mb-4", height: "57px" %>
+  <h1 class="mb-4">Edit list</h1>
+  
+  <%= render 'form', list: @list %>
 
-<%= render 'form', list: @list %>
-
-<%= link_to 'Show', @list %> |
-<%= link_to 'Back', lists_path %>
+  <%= link_to 'Delete this wish list', list_path(@list), method: :delete, data: { confirm: "All info about this wish list and their items will be deleted. This action is irreversible. Are you sure?" }, class: "w-100 btn btn-lg btn-outline-danger mt-4" %>
+</div>
