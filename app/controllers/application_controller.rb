@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    flash[:alert] = "We can't let you in here ;("
+    flash[:alert] = "Sorry, we can't let you in here ;("
     redirect_back(fallback_location: root_path)
   end
 end

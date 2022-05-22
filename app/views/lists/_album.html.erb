@@ -1,6 +1,16 @@
 <div class="album py-5">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% if show_new_button %>
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= image_tag "logo.png", alt: "" %> <%= link_to "Create new wish list", new_list_path, class: "card-link" %></h5>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
       <% lists.each do |list| %>
         <div class="col">
           <div class="card">
@@ -12,16 +22,6 @@
               <% else %>
                 <p class="card-text text-muted"><%= pluralize list.items.count, "item" %></p>
               <% end %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-
-      <% if show_new_button %>
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><%= image_tag "logo.png", alt: "" %> <%= link_to "Create new wish list", new_list_path, class: "card-link" %></h5>
             </div>
           </div>
         </div>

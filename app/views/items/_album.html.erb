@@ -1,6 +1,16 @@
 <div class="album py-5">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% if show_new_button %>
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= image_tag "wrapped-gift.png", alt: "" %> <%= link_to "Add new item", new_item_path(list_id: list_id), class: "card-link" %></h5>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
       <% items.each do |item| %>
         <div class="col">
           <div class="card">
@@ -18,16 +28,6 @@
               <% unless item.price.nil? %>
                 <p class="card-text">Price: <%= item.price %></p>
               <% end %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-
-      <% if show_new_button %>
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><%= image_tag "wrapped-gift.png", alt: "" %> <%= link_to "Add new item", new_item_path(list_id: list_id), class: "card-link" %></h5>
             </div>
           </div>
         </div>

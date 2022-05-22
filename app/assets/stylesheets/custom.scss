@@ -33,3 +33,24 @@ h5 img {
 .btn img {
   height: 25px;
 }
+
+@media screen and (min-width: 500px) {
+  .item-show {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0px auto;
+
+    .item-details,
+    .item-image {
+      width: 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 501px) {
+  .item-image {
+    margin-top: 20px;
+  }
+}

@@ -1,35 +1,38 @@
-<div class="text-center">
+<div class="text-center item-show">
+  <div class="item-details">
+    <% if @item.list.user == current_user%>
+      <%= image_tag "wrapped-gift.png", alt: "", class: "mb-4", height: "57px" %>
+      <h2 class="mb-4"><%= @item.title %></h2>
+      
+      <p class="text-center text-muted">visible for: <strong><%= @item.list.visibility %></strong> &bull; <%= link_to "edit info", edit_item_path(@item) %></p>
+    <% else %>
+      <h3><%= image_tag "wrapped-gift.png", alt: "", class: "mb-4" %> <%= @item.list.user.profile.first_name %> <span class="fw-light">dreams about...</span></h3>
+      <h2 class="mb-4"><%= @item.title %></h2>
+    <% end %>
 
-  <% if @item.list.user == current_user%>
-    <%= image_tag "wrapped-gift.png", alt: "", class: "mb-4", height: "57px" %>
-    <h1 class="mb-4"><%= @item.title %></h1>
-    
-    <p class="text-center text-muted">visible for: <strong><%= @item.list.visibility %></strong> &bull; <%= link_to "edit info", edit_item_path(@item) %></p>
-  <% else %>
-    <h3><%= image_tag "wrapped-gift.png", alt: "", class: "mb-4" %> <%= @item.list.user.profile.first_name %> <span class="fw-light">dreams about...</span></h3>
-    <h1 class="mb-4"><%= @item.title %></h1>
-  <% end %>
+    <% unless @item.description.blank? %>
+      <h4><span class="fw-light">Description:</span> <%= @item.description %></h4>
+    <% end %>
 
-  <% unless @item.description.blank? %>
-    <h4><span class="fw-light">Description:</span> <%= @item.description %></h4>
-  <% end %>
+    <% unless @item.price.blank? %>
+      <h6><span class="fw-light">Price:</span> <%= @item.price %></h6>
+    <% end %>
 
-  <% unless @item.price.blank? %>
-    <h6><span class="fw-light">Price:</span> <%= @item.price %></h6>
-  <% end %>
+    <% unless @item.url.blank? %>
+      <div class="mt-4">
+        <%= link_to "Go to the Store", @item.url, class: "btn btn-primary", target: "_blank" %>
+        <p class="fw-light text-muted ">(external link)</p>
+      </div>
+    <% end %>
 
-  <% unless @item.url.blank? %>
     <div class="mt-4">
-      <%= link_to "Go to the Store", @item.url, class: "btn btn-primary", target: "_blank" %>
-      <p class="fw-light text-muted ">(external link)</p>
+      <%= link_to "Other items in wish list", @item.list, class: "btn btn-outline-primary" %>
     </div>
-  <% end %>
-
-  <div class="mt-4">
-    <%= link_to "Open their wish list", @item.list, class: "btn btn-outline-primary" %>
   </div>
 
-  <% unless @item.image_url.blank? %>
-    <%= image_tag @item.image_url, alt: @item.title, class: "rounded mx-auto d-block mt-4" %>
-  <% end %>
+  <div class="item-image">
+    <% unless @item.image_url.blank? %>
+      <%= image_tag @item.image_url, alt: @item.title, class: "rounded w-100" %>
+    <% end %>
+  </div>
 </div>
