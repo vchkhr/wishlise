@@ -1,4 +1,4 @@
-<h1 class="text-center"><%= get_emoji_code(@list.emoji) %> <%= @list.title %></h1>
+<h1 class="text-center"><%= image_tag get_emoji_image(@list.emoji), alt: "", class: "mb-4", height: "57px" %> <%= @list.title %></h1>
 
 <% if @list.user == current_user%>
   <p class="text-center text-muted">visible for: <strong><%= @list.visibility %></strong> &bull; <%= link_to "edit info", edit_list_path(@list) %></p>

@@ -13,5 +13,7 @@ module EmojisHelper
     when :birthday_cake
       'birthday-cake.png'
     end
+
+    return "icons/#{code}"
   end
 end

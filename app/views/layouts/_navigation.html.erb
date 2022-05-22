@@ -10,7 +10,7 @@
         <% unless current_user.profile.nil? %>
           <% unless current_user.lists.empty? %>
             <%= link_to new_item_path, class: "btn btn-outline-primary" do %>
-              <%# <%= image_tag "wrapped-gift.png", alt: "" %>
+              <%# <%= image_tag "icons/wrapped-gift.png", alt: "" %>
               Add new item
             <% end %>
           <% end %>

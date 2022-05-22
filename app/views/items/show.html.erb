@@ -1,12 +1,12 @@
 <div class="text-center item-show">
   <div class="item-details">
     <% if @item.list.user == current_user%>
-      <%= image_tag "wrapped-gift.png", alt: "", class: "mb-4", height: "57px" %>
+      <%= image_tag "icons/wrapped-gift.png", alt: "", class: "mb-4", height: "57px" %>
       <h2 class="mb-4"><%= @item.title %></h2>
       
       <p class="text-center text-muted">visible for: <strong><%= @item.list.visibility %></strong> &bull; <%= link_to "edit info", edit_item_path(@item) %></p>
     <% else %>
-      <h3><%= image_tag "wrapped-gift.png", alt: "", class: "mb-4" %> <%= @item.list.user.profile.first_name %> <span class="fw-light">dreams about...</span></h3>
+      <h3><%= image_tag "icons/wrapped-gift.png", alt: "", class: "mb-4" %> <%= @item.list.user.profile.first_name %> <span class="fw-light">dreams about...</span></h3>
       <h2 class="mb-4"><%= @item.title %></h2>
     <% end %>
 
