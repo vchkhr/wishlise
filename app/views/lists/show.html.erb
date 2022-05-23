@@ -2,6 +2,12 @@
 
 <% if @list.user == current_user%>
   <p class="text-center text-muted">visible for: <strong><%= @list.visibility %></strong> &bull; <%= link_to "edit info", edit_list_path(@list) %></p>
+
+  <% unless @list.private? %>
+    <div class="text-center">
+      <button class="btn btn-outline-primary share-button">Share this list</button>
+    </div>
+  <% end %>
 <% else %>
   <p class="text-center text-muted">
     <span><%= link_to @list.user.profile.first_name, profile_path(@list.user.profile) %>'s</span>
@@ -19,3 +25,23 @@
 <% end %>
 
 <%= render partial: 'items/album', locals: { items: @list.items, show_new_button: current_user == @list.user, list_id: @list.id } %>
+
+<script>
+  const shareData = {
+    title: "Share <%= @list.title %>",
+    text: "Wish list created by <%= @list.user.profile.first_name %>",
+    url: "<%= list_url(@list) %>"
+  }
+
+  const btn = document.querySelector('.share-button');
+  console.log(btn)
+
+  if (btn) {
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.share(shareData)
+      } catch(err) {
+      }
+    });
+  }
+</script>
