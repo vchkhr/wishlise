@@ -6,13 +6,22 @@ Add items to your wish list and get what you want for the holidays.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### First run
 
-1. Create `.env` file from the `.env.template`. Fill the file with your values.
+### Prerequisites
+
+- PostgreSQL
+
+### First run
 
 1. Run `bundle` to get all gems.
 
+1. Create `.env` file from the `.env.template`.
+
+1. Insert your DB username and password into `.env` file.
+
 1. Run `rails db:setup` to setup the database.
+
+1. Run `rake secret` and insert the secret key into `.env` file.
 
 1. Run `rails s` to start the application.
 
