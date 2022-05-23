@@ -23,6 +23,7 @@
   <div class="field form-floating mb-4">
     <%= f.select :visibility_cd, List.visibilities.hash {|v| [ v.value, v.key ]}, {selected: list&.visibility_cd}, class: "form-select", required: "true" %>
     <%= f.label :visibility_cd, "Visibility" %>
+    <p class="text-muted mt-0">public - this list will appear in your profile<br>by_link - list will be available only by link<br>private - only you can see this list</p>
   </div>
 
   <div class="actions mt-4">

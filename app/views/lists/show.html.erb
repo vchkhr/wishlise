@@ -3,7 +3,15 @@
 <% if @list.user == current_user%>
   <p class="text-center text-muted">visible for: <strong><%= @list.visibility %></strong> &bull; <%= link_to "edit info", edit_list_path(@list) %></p>
 <% else %>
-  <p class="text-center text-muted"><%= link_to @list.user.profile.first_name, profile_path(@list.user.profile) %>'s wish list</p>
+  <p class="text-center text-muted">
+    <span><%= link_to @list.user.profile.first_name, profile_path(@list.user.profile) %>'s</span>
+    
+    <% if @list.by_link? %>
+      <span>wish list, <strong>available only by link</strong>
+    <% else %>
+      <span><%= @list.visibility %> wish list</span>
+    <% end %>
+  </p>
 <% end %>
 
 <% if @list.items.empty? %>

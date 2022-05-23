@@ -3,7 +3,7 @@ class Profile < ApplicationRecord
 
   validates :first_name, presence: true
 
-  as_enum :visibility, public: 2, friends: 1, private: 0
+  as_enum :visibility, public: 2, private: 0
 
   def full_name
     if first_name.nil?

@@ -16,6 +16,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"><%= image_tag get_emoji_image(list.emoji), alt: "" %> <%= link_to list.title, list, class: "card-link" %></h5>
+              <p class="card-text text-muted mb-0">Visible for: <strong><%= list.visibility %></strong></p>
 
               <% if list.items.empty? %>
                 <p class="card-text text-muted">No items</p>

@@ -20,7 +20,7 @@
   <div class="field form-floating mb-4">
     <%= f.select :visibility_cd, Profile.visibilities.hash {|v| [ v.value, v.key ]}, {selected: current_user.profile&.visibility_cd}, class: "form-select", required: "true" %>
     <%= f.label :visibility_cd, "Profile visibility" %>
-    <p class="text-muted mt-0">private - only you can see profile info<br>friends - your friends can see profile<br>public - everyone can see profile</p>
+    <p class="text-muted mt-0">public - everyone can see your profile<br>private - only you can see your profile</p>
   </div>
 
   <div class="field form-floating mb-1">
