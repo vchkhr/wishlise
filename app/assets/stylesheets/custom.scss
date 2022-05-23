@@ -3,12 +3,14 @@ body {
 }
 
 .welcome-screen {
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   margin: auto;
 }
 
 .form-center {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   margin: auto;
 }
 
