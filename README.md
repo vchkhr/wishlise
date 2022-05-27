@@ -13,7 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### First run
 
-1. Run `bundle` to get all gems.
+1. Run `bundle` to install all gems.
 
 1. Create `.env` file from the `.env.template`.
 
@@ -27,13 +27,28 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Open `http://localhost:3000/` in your browser and you will see the app.
 
+Optional:
+
+- To run the app in other port, use `bundle exec puma -C config/puma.rb -b tcp://127.0.0.1:3001`.
+
 ## Deployment
 
 ### Deploying the application
 
-1. Fill environmental variables from the `.env.template` with your values.
+1. Run `bundle` to install all gems.
+
+1. Create `.env` file from the `.env.production.template`.
+
+1. Insert your DB URL into `.env` file.
 
 1. Run `rails db:setup` to setup the database.
+
+1. Run `rake secret` and insert the secret key into `.env` file.
+
+1. Run `rails s` to start the application.
+
+
+### Deploying to Heroku
 
 ## Environments
 
