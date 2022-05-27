@@ -50,6 +50,12 @@ Optional:
 
 ### Deploying to Heroku
 
+1. [Install the Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli).
+
+1. Deploy by running `git push heroku main`.
+
+1. Do all steps from "Deploying the application" in Heroku.
+
 ## Environments
 
 ### URL's
