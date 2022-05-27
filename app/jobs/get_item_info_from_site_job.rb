@@ -43,12 +43,28 @@ class GetItemInfoFromSiteJob < ApplicationJob
     end
   end
 
-  def parse_price
-    @page.parsed.xpath("//*[@itemprop='price']").each do |title_candidate|
-      price = title_candidate.text
+  def validate_price(price)
+    !price.empty? && price.to_f > 0
+  end
 
-      unless price.empty?
+  def parse_price
+    @page.parsed.xpath("//*[@itemprop='price']").each do |price_candidate|
+      price = price_candidate.text
+
+      if validate_price(price)
         @item.update(price: price) and return
+      end
+    end
+
+    @page.parsed.xpath("//script[contains(.,'\"price\"')]").each do |price_candidate|
+      price_candidate = price_candidate.text
+
+      if price_candidate.include?('"price":')
+        price = price_candidate.split('"price":')[1].split(',')[0]
+
+        if validate_price(price)
+          @item.update(price: price) and return
+        end
       end
     end
   end
