@@ -4,5 +4,5 @@
   
   <%= render 'form', item: @item %>
 
-  <%= link_to 'Delete this item', item_path(@item), method: :delete, data: { confirm: "This item will be deleted and its irreversible. Are you sure?" }, class: "w-100 btn btn-lg btn-outline-danger mt-4" %>
+  <%= button_to 'Delete this item', item_path(@item), method: :delete, data: { confirm: "This item will be deleted and its irreversible. Are you sure?" }, class: "w-100 btn btn-lg btn-outline-danger mt-4" %>
 </div>

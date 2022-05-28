@@ -7,7 +7,7 @@ class GetItemInfoFromSiteJob < ApplicationJob
     @item = item
     @page = MetaInspector.new(@item.url)
 
-    image_url = @page.images.best
+    return if check_bad_url == true
 
     parse_image
     parse_title
@@ -17,6 +17,12 @@ class GetItemInfoFromSiteJob < ApplicationJob
   end
 
   private
+
+  def check_bad_url
+    ['instagram.com', 'www.instagram.com'].each do |site|
+      return true if @page.host == site
+    end
+  end
 
   def parse_image
     image_url = @page.images.best
