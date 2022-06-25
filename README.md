@@ -6,7 +6,6 @@ Add items to your wish list and get what you want for the holidays.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-
 ### Prerequisites
 
 - Ruby 3.0.1
@@ -60,7 +59,6 @@ Optional:
 ## Environments
 
 ### URL's
-Here goes a list of environments with URL's. If there are admin panels add urls to them too.
 
 * Production [http://wishlise.vchkhr.com/](http://wishlise.vchkhr.com/)
 
@@ -71,7 +69,6 @@ Here goes a list of environments with URL's. If there are admin panels add urls 
 ## Codestyle
 
 [Ruby coding style guide](https://github.com/rubocop-hq/ruby-style-guide)
-
 
 ## License
 
