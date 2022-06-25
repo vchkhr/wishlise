@@ -9,6 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
+- Ruby 3.0.1
 - PostgreSQL
 
 ### First run
