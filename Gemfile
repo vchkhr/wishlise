@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.1'
+ruby '3.1.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.5', '>= 6.1.5.1'
@@ -40,7 +40,7 @@ gem 'jquery-rails'
 # Bootstrap 5 ruby gem for Ruby on Rails (Sprockets) and Hanami (formerly Lotus)
 gem 'bootstrap', '~> 5.1.3'
 
-# bootstrap_form is a Rails form builder that makes it super easy to integrate Bootstrap v5-style forms into your Rails application. 
+# bootstrap_form is a Rails form builder that makes it super easy to integrate Bootstrap v5-style forms into your Rails application.
 gem "bootstrap_form", "~> 5.0"
 
 # Unobtrusive enum-like fields for ActiveRecord and Ruby, brings enums functionality to ActiveRecord and Mongoid models (built for Rails 4+)
