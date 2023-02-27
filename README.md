@@ -2,9 +2,10 @@
 
 Based on [Awesome Compose](https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/rails/README.md).
 
-Ruby version: 3.2.1.
-
-Ruby on Rails version: 7.0.4.2.
+- Ruby version: 3.2.1.
+- Ruby on Rails version: 7.0.4.2.
+- Devise auth.
+- Bootstrap styles.
 
 ## Start the app
 
