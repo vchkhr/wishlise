@@ -2,10 +2,10 @@
 
 Based on [Awesome Compose](https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/rails/README.md).
 
-- Ruby version: 3.2.1.
-- Ruby on Rails version: 7.0.4.2.
+- Ruby 3.2.1.
+- Ruby on Rails 7.0.4.2 ([http://localhost:3000/](http://localhost:3000/)).
 - Devise auth.
-- MailCatcher.
+- MailCatcher ([http://localhost:1080/](http://localhost:1080/)).
 - Bootstrap styles and icons.
 - Navbar, styled auth pages, demo home and articles pages.
 
