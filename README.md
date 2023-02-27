@@ -5,7 +5,8 @@ Based on [Awesome Compose](https://github.com/docker/awesome-compose/blob/master
 - Ruby version: 3.2.1.
 - Ruby on Rails version: 7.0.4.2.
 - Devise auth.
-- Bootstrap styles.
+- Bootstrap styles and icons.
+- Navbar, styled auth pages, demo home and articles pages.
 
 ## Start the app
 
