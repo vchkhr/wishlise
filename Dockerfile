@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
 FROM ruby:3.2.2
 RUN apt-get update -qq && apt-get install -y nodejs npm postgresql-client
-WORKDIR /myapp
-COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
+WORKDIR /wishlise
+COPY Gemfile /wishlise/Gemfile
+COPY Gemfile.lock /wishlise/Gemfile.lock
 RUN bundle install
 RUN npm install --global yarn
 

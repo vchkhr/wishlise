@@ -1,16 +1,9 @@
-# Dockerized Rails 7 App
+# Wishlise
 
-Based on [Awesome Compose](https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/rails/README.md).
+Online wishlist app.
 
 - Ruby 3.2.2.
 - Ruby on Rails 7.0.5 ([http://localhost:3000/](http://localhost:3000/)).
-- PostgreSQL (localhost:5432).
-- Devise authentication.
-- MailCatcher ([http://localhost:1080/](http://localhost:1080/)).
-- Bootstrap styles and icons.
-- Navbar, styled auth pages, demo home and article pages.
-
-You can rename the application by replacing "myapp" manually.
 
 ## Start the app
 
