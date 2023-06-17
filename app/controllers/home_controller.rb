@@ -1,11 +1,3 @@
 class HomeController < ApplicationController
-  def new
-    redirect_to wishlists_path if current_user
-  end
-
-  def webmanifest
-  end
-
-  def browserconfig
-  end
+  before_action :complete_registration!, only: %i[ welcome ]
 end

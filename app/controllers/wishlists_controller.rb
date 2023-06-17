@@ -1,4 +1,6 @@
 class WishlistsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :complete_registration!
   before_action :set_wishlist, only: %i[ show edit update destroy ]
 
   # GET /wishlists or /wishlists.json

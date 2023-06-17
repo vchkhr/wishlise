@@ -7,6 +7,10 @@ Online wishlist app.
 
 ## Start the app
 
+1. Copy the `.env.template` file and name it `.env`. Fill in the file.
+
+1. Run:
+
 ```bash
 docker compose build
 docker compose up

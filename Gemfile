@@ -48,15 +48,24 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-# Devise is a flexible authentication solution for Rails based on Warden
+# Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 4.9.0'
 
-# Bootstrap 5 ruby gem for Ruby on Rails (Sprockets/Importmaps) and Hanami (formerly Lotus).
+# The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web.
 gem 'bootstrap', '~> 5.2.3'
+
+# High-level wrapper for processing images for the web with ImageMagick or libvips.
+gem 'image_processing', '~> 1.12', '>= 1.12.2'
+
+# Forms made easy!
+gem "simple_form"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+
+  # Shim to load environment variables from .env into ENV in development.
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -69,7 +78,7 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
-  # Create a multi-platform favicon for your Ruby on Rails project with RealFaviconGenerator
+  # Generate and install a favicon for all platforms with RealFaviconGenerator.
   gem 'rails_real_favicon'
 end
 
