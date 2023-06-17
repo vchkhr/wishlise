@@ -68,6 +68,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # Create a multi-platform favicon for your Ruby on Rails project with RealFaviconGenerator
+  gem 'rails_real_favicon'
 end
 
 group :test do

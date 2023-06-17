@@ -1,0 +1,2 @@
+class FaviconController < ApplicationController
+end
