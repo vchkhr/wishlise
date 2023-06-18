@@ -1,5 +1,5 @@
 <%= turbo_frame_tag :profile_avatar_form_frame do %>
-  <%= simple_form_for profile, url: profile_avatar_path(profile), method: :PATCH, data: { "update-profile-target": "avatarForm" } do |f| %>
+  <%= form_for profile, url: profile_avatar_path(profile), method: :PATCH, data: { "update-profile-target": "avatarForm" } do |f| %>
     <div class="field mt-3">
       <% unless result.nil? %>
         <% if result == true %>
@@ -19,8 +19,8 @@
         <% end %>
 
         <div class="ms-3 align-self-center">
-          <%= f.label :avatar, label: "Profile image" %>
-          <%= f.input :avatar, label: false, input_html: { data: { action: "change->update-profile#avatarSubmit", "update-profile-target": "avatarInput" } } %>
+          <%= f.label :avatar, "Profile image" %>
+          <%= f.file_field :avatar, data: { action: "change->update-profile#avatarSubmit", "update-profile-target": "avatarInput" } %>
 
           <% if profile.avatar.present? %>
             <%= link_to "Remove profile image", profile_avatar_path(profile), data: { turbo_method: :delete }, class: "text-danger" %>

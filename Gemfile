@@ -57,9 +57,6 @@ gem 'bootstrap', '~> 5.2.3'
 # High-level wrapper for processing images for the web with ImageMagick or libvips.
 gem 'image_processing', '~> 1.12', '>= 1.12.2'
 
-# Forms made easy!
-gem "simple_form"
-
 # Common monads for Ruby
 gem 'dry-monads', '~> 1.6'
 
