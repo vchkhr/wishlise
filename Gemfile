@@ -60,12 +60,24 @@ gem 'image_processing', '~> 1.12', '>= 1.12.2'
 # Forms made easy!
 gem "simple_form"
 
+# Common monads for Ruby
+gem 'dry-monads', '~> 1.6'
+
+# Validation library
+gem 'dry-validation', '~> 1.10'
+
+# dry-schema provides a DSL for defining schemas with keys and rules that should be applied to values
+gem 'dry-schema', '~> 1.13', '>= 1.13.2'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 
   # Shim to load environment variables from .env into ENV in development.
   gem 'dotenv-rails'
+
+  # Byebug is a Ruby debugger.
+  gem 'byebug', '~> 11.1', '>= 11.1.3'
 end
 
 group :development do

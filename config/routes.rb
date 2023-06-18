@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :profiles, only: %i[ edit update ]
   get "complete_registration", to: "profiles#edit", as: "complete_registration"
 
+  patch "profiles/:id/avatar", to: "profiles#update_avatar", as: "profile_avatar"
+  delete "profiles/:id/avatar", to: "profiles#destroy_avatar"
+
   resources :wishlists do
     resources :items
   end

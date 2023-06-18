@@ -98,7 +98,7 @@ SimpleForm.setup do |config|
   end
 
   # vertical file input
-  config.wrappers :vertical_file, class: 'mb-3' do |b|
+  config.wrappers :vertical_file, class: '' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength

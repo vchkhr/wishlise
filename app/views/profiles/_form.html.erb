@@ -1,35 +1,21 @@
-<%= simple_form_for profile do |f| %>
-  <div class="field mt-3">
-    <%= f.label :username %>
-    <%= f.input :username, label: false %>
-    <div id="profile_username_text" class="form-text">You will be able to share a link to your profile with your username: <i>www.<%= ENV['HOST'] %>/users/username</i>.</div>
-  </div>
-
-  <div class="field mt-3">
-    <%= f.label :display_name %>
-    <%= f.input :display_name, label: false %>
-    <div id="profile_display_name_text" class="form-text">This name is displayed to other users on your profile page and your wishlists. Write here your real name, nickname, or leave it blank to use your username.</div>
-  </div>
-
-  <div class="field mt-3 d-flex ">
-    <div>
-      <% if @profile.avatar.present? %>
-        <div id="<%= dom_id(@profile, :avatar) %>">
-          <%= image_tag @profile.avatar, class: "w-1/3" %>
-          <%= link_to "Remove cover image", profile_avatar_path(blog_post), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-        </div>
-      <% else %>
-        <%= image_tag asset_path("avatar.png"), class: "avatar" %>
-      <% end %>
+<%= turbo_frame_tag :profile_form_frame, data: { controller: "update-profile" } do %>
+  <%= simple_form_for profile, url: profile_path(profile), method: :PATCH, data: { "update-profile-target": "form" } do |f| %>
+    <div class="field mt-3">
+      <%= f.label :username %>
+      <%= f.input :username, label: false %>
+      <div id="profile_username_text" class="form-text">You will be able to share a link to your profile with your username: <i>www.<%= ENV['HOST'] %>/users/username</i>.</div>
     </div>
 
-    <div class="ms-3 align-self-center">
-      <%= f.label :avatar, label: "Profile image" %>
-      <%= f.input :avatar, label: false %>
+    <div class="field mt-3">
+      <%= f.label :display_name %>
+      <%= f.input :display_name, label: false %>
+      <div id="profile_display_name_text" class="form-text">This name is displayed to other users on your profile page and your wishlists. Write here your real name, nickname, or leave it blank to use your username.</div>
     </div>
-  </div>
+  <% end %>
+
+  <%= render "avatar_form", profile: profile, result: nil %>
 
   <div class="actions mt-3 d-flex">
-    <%= f.submit "Save", class: "btn btn-primary flex-fill" %>
+    <%= button_tag "Save", class: "btn btn-primary flex-fill update-profile-submit", data: { "update-profile-target": "submit" } %>
   </div>
 <% end %>
