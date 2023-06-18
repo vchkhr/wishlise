@@ -1,11 +1,1 @@
-<div class="my-5 mx-auto profile-form">
-  <h2 class="text-center">
-    <% if @profile.username.blank? %>
-      Let's complete your registration &#129668;
-    <% else %>
-      Editing profile
-    <% end %>
-  </h2>
-
-  <%= render "form", profile: @profile %>
-</div>
+<%= render "form", profile: @profile, values: [], errors: [] %>

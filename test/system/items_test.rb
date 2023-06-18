@@ -18,7 +18,6 @@ class ItemsTest < ApplicationSystemTestCase
     fill_in "Price", with: @item.price
     fill_in "Title", with: @item.title
     fill_in "Url", with: @item.url
-    fill_in "Wishlist", with: @item.wishlist_id
     click_on "Create Item"
 
     assert_text "Item was successfully created"
@@ -33,7 +32,6 @@ class ItemsTest < ApplicationSystemTestCase
     fill_in "Price", with: @item.price
     fill_in "Title", with: @item.title
     fill_in "Url", with: @item.url
-    fill_in "Wishlist", with: @item.wishlist_id
     click_on "Update Item"
 
     assert_text "Item was successfully updated"

@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import FormController from "./form_controller.js"
+application.register("form", FormController)
+
 import UpdateProfileController from "./update_profile_controller.js"
 application.register("update-profile", UpdateProfileController)

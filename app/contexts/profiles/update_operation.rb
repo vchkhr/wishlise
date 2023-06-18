@@ -3,7 +3,8 @@
 module Profiles
   class UpdateOperation < ::ApplicationOperation
     def call(params, current_user)
-      @attrs = yield Validate(Contracts::Update, params.merge(user_id: current_user.id))
+      @current_user = current_user
+      @attrs = yield Validate(Contracts::Update, params.merge(user_id: @current_user.id))
 
       fill_display_name
       update_profile
@@ -17,7 +18,7 @@ module Profiles
     end
 
     def update_profile
-      @profile = current_user.profile.update(@attrs)
+      @profile = @current_user.profile.update(@attrs)
     end
   end
 end

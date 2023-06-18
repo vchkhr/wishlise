@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   patch "profiles/:id/avatar", to: "profiles#update_avatar", as: "profile_avatar"
   delete "profiles/:id/avatar", to: "profiles#destroy_avatar"
 
-  resources :wishlists do
-    resources :items
-  end
+  resources :wishlists
+  resources :items
 end

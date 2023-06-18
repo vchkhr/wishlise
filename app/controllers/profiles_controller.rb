@@ -10,14 +10,13 @@ class ProfilesController < ApplicationController
     result = Profiles::UpdateOperation.new.call(profile_params, current_user)
 
     if result.success?
-      if previous_username.empty?
-        redirect_to root_url, notice: "You have completed your account registration."
+      if previous_username.nil?
+        render turbo_stream: turbo_stream.replace(:profile_form_frame, partial: "wishlists/form", locals: { wishlist: current_user.wishlists.new, values: [], errors: [] })
       else
         # TODO: notice: "Profile was successfully updated."
       end
     else
-      profile = ErrorWrapper.new(result, profile_params, model: @profile)
-      render turbo_stream: turbo_stream.replace(:profile_form_frame, partial: "profiles/form", locals: { profile: profile })
+      render turbo_stream: turbo_stream.replace(:profile_form_frame, partial: "profiles/form", locals: { profile: current_user.profile, values: profile_params, errors: result.failure[1].errors.to_h })
     end
   end
 
