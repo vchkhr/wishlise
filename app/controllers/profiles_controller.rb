@@ -11,7 +11,7 @@ class ProfilesController < ApplicationController
 
     if result.success?
       if previous_username.nil?
-        render turbo_stream: turbo_stream.replace(:profile_form_frame, partial: "wishlists/form", locals: { wishlist: current_user.wishlists.new, values: [], errors: [] })
+        redirect_to root_url
       else
         # TODO: notice: "Profile was successfully updated."
       end

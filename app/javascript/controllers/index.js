@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import TurboFormRedirectController from "./turbo_form_redirect_controller.js"
+application.register("turbo-form-redirect", TurboFormRedirectController)
+
 import FormController from "./form_controller.js"
 application.register("form", FormController)
 

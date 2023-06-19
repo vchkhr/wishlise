@@ -1,4 +1,4 @@
-<%= turbo_frame_tag :profile_form_frame, data: { controller: "form update-profile" } do %>
+<%= turbo_frame_tag :profile_form_frame, data: { controller: "turbo-form-redirect form update-profile" } do %>
   <div class="my-5 mx-auto profile-form">
     <h2 class="text-center">
       <% if profile.username.blank? %>
