@@ -1,8 +1,17 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_profile, only: %i[ edit update ]
+  before_action :set_profile, only: %i[ edit complete_registration update ]
 
   def edit
+  end
+
+  def complete_registration
+    if current_user.profile.username
+      redirect_to root_url, notice: "You have already completed the registration."
+      return
+    end
+
+    render :edit
   end
 
   def update

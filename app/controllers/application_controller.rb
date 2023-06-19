@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
       profile.save(validate: false)
     end
 
-    redirect_to complete_registration_path if current_user.profile.username.blank?
+    redirect_to complete_registration_path unless current_user.profile.username
   end
 end

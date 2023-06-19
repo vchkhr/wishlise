@@ -1,10 +1,10 @@
 <%= turbo_frame_tag :profile_form_frame, data: { controller: "turbo-form-redirect form profile-form" } do %>
   <div class="my-5 mx-auto profile-form">
     <h2 class="text-center">
-      <% if profile.username.blank? %>
-        Let's complete your registration &#129668;
-      <% else %>
+      <% if profile.username %>
         Editing profile
+      <% else %>
+        Let's complete your registration &#129668;
       <% end %>
     </h2>
 

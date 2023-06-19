@@ -4,17 +4,7 @@ export default class extends Controller {
   static targets = ["form"]
 
   connect() {
-    // this.fillFormValues();
     this.fillFormErrors();
-  }
-
-  fillFormValues() {
-    let values = JSON.parse(this.formTarget.getAttribute("data-form-values"));
-    for (const [key, value] of Object.entries(values)) {
-      let input = this.formTarget.querySelector(`input[name*='${key}']`)
-      input.value = value;
-      input.classList.add("is-valid");
-    }
   }
 
   fillFormErrors() {
