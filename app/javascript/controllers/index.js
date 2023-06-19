@@ -10,5 +10,8 @@ application.register("turbo-form-redirect", TurboFormRedirectController)
 import FormController from "./form_controller.js"
 application.register("form", FormController)
 
-import UpdateProfileController from "./update_profile_controller.js"
-application.register("update-profile", UpdateProfileController)
+import ProfileFormController from "./profile_form_controller.js"
+application.register("profile-form", ProfileFormController)
+
+import WishlistFormController from "./wishlist_form_controller.js"
+application.register("wishlist-form", WishlistFormController)

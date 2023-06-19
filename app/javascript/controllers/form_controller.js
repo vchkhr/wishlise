@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["form"]
 
   connect() {
-    this.fillFormValues();
+    // this.fillFormValues();
     this.fillFormErrors();
   }
 

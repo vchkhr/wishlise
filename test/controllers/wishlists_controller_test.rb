@@ -17,7 +17,7 @@ class WishlistsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create wishlist" do
     assert_difference("Wishlist.count") do
-      post wishlists_url, params: { wishlist: { emoji: @wishlist.emoji, publicity: @wishlist.publicity, title: @wishlist.title, user_id: @wishlist.user_id } }
+      post wishlists_url, params: { wishlist: { publicity: @wishlist.publicity, title: @wishlist.title, user_id: @wishlist.user_id } }
     end
 
     assert_redirected_to wishlist_url(Wishlist.last)
@@ -34,7 +34,7 @@ class WishlistsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update wishlist" do
-    patch wishlist_url(@wishlist), params: { wishlist: { emoji: @wishlist.emoji, publicity: @wishlist.publicity, title: @wishlist.title, user_id: @wishlist.user_id } }
+    patch wishlist_url(@wishlist), params: { wishlist: { publicity: @wishlist.publicity, title: @wishlist.title, user_id: @wishlist.user_id } }
     assert_redirected_to wishlist_url(@wishlist)
   end
 

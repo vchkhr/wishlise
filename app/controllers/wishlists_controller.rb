@@ -3,40 +3,31 @@ class WishlistsController < ApplicationController
   before_action :complete_registration!
   before_action :set_wishlist, only: %i[ show edit update destroy ]
 
-  # GET /wishlists or /wishlists.json
   def index
-    @wishlists = Wishlist.all
+    @wishlists = current_user.wishlists
+    redirect_to new_wishlist_path if @wishlists.empty?
   end
 
-  # GET /wishlists/1 or /wishlists/1.json
   def show
   end
 
-  # GET /wishlists/new
   def new
-    @wishlist = Wishlist.new
+    @wishlist = new_wishlist
   end
 
-  # GET /wishlists/1/edit
   def edit
   end
 
-  # POST /wishlists or /wishlists.json
   def create
-    @wishlist = Wishlist.new(wishlist_params)
+    result = Wishlists::CreateOperation.new.call(wishlist_params, current_user)
 
-    respond_to do |format|
-      if @wishlist.save
-        format.html { redirect_to wishlist_url(@wishlist), notice: "Wishlist was successfully created." }
-        format.json { render :show, status: :created, location: @wishlist }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @wishlist.errors, status: :unprocessable_entity }
-      end
+    if result.success?
+      redirect_to wishlist_path(result.value!.id), notice: "Wishlist was successfully created."
+    else
+      render turbo_stream: turbo_stream.replace(:wishlist_form_frame, partial: "wishlists/form", locals: { wishlist: new_wishlist(wishlist_params), errors: result.failure[1].errors.to_h })
     end
   end
 
-  # PATCH/PUT /wishlists/1 or /wishlists/1.json
   def update
     respond_to do |format|
       if @wishlist.update(wishlist_params)
@@ -60,13 +51,15 @@ class WishlistsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_wishlist
-      @wishlist = Wishlist.find(params[:id])
-    end
+  def new_wishlist(params={})
+    current_user.wishlists.new(params)
+  end
 
-    # Only allow a list of trusted parameters through.
-    def wishlist_params
-      params.require(:wishlist).permit(:user_id, :title, :emoji, :publicity)
-    end
+  def set_wishlist
+    @wishlist = Wishlist.find(params[:id])
+  end
+
+  def wishlist_params
+    params.require(:wishlist).permit(:title, :publicity)
+  end
 end

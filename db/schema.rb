@@ -77,7 +77,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_173149) do
   create_table "wishlists", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title"
-    t.string "emoji"
     t.integer "publicity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

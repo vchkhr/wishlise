@@ -14,7 +14,6 @@ class WishlistsTest < ApplicationSystemTestCase
     visit wishlists_url
     click_on "New wishlist"
 
-    fill_in "Emoji", with: @wishlist.emoji
     fill_in "Publicity", with: @wishlist.publicity
     fill_in "Title", with: @wishlist.title
     fill_in "User", with: @wishlist.user_id
@@ -28,7 +27,6 @@ class WishlistsTest < ApplicationSystemTestCase
     visit wishlist_url(@wishlist)
     click_on "Edit this wishlist", match: :first
 
-    fill_in "Emoji", with: @wishlist.emoji
     fill_in "Publicity", with: @wishlist.publicity
     fill_in "Title", with: @wishlist.title
     fill_in "User", with: @wishlist.user_id

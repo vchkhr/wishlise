@@ -11,7 +11,7 @@ class ProfilesController < ApplicationController
 
     if result.success?
       if previous_username.nil?
-        redirect_to root_url
+        redirect_to root_url, notice: "You have completed the registration."
       else
         # TODO: notice: "Profile was successfully updated."
       end

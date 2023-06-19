@@ -7,7 +7,7 @@ module Profiles
       @attrs = yield Validate(Contracts::Update, params.merge(user_id: @current_user.id))
 
       fill_display_name
-      update_profile
+      @profile = update_profile
 
       Success(@profile)
     end
@@ -18,7 +18,7 @@ module Profiles
     end
 
     def update_profile
-      @profile = @current_user.profile.update(@attrs)
+      @current_user.profile.update(@attrs)
     end
   end
 end
