@@ -1,4 +1,4 @@
-<%= turbo_frame_tag :wishlist_frame do %>
+<%= turbo_frame_tag @wishlist do %>
   <div class="my-5 mx-auto wishlist-form">
     <h2 class="text-center">
       <% if current_user.wishlists.count == 0 %>

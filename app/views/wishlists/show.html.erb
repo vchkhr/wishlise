@@ -1,10 +1,10 @@
-<p style="color: green"><%= notice %></p>
+<%= turbo_frame_tag @wishlist do %>
+  <%= render @wishlist %>
 
-<%= render @wishlist %>
+  <div>
+    <%= link_to "Edit this wishlist", edit_wishlist_path(@wishlist), data: { "turbo-action": "replace" } %> |
+    <%= link_to "Back to wishlists", wishlists_path %>
 
-<div>
-  <%= link_to "Edit this wishlist", edit_wishlist_path(@wishlist) %> |
-  <%= link_to "Back to wishlists", wishlists_path %>
-
-  <%= button_to "Destroy this wishlist", @wishlist, method: :delete %>
-</div>
+    <%= button_to "Destroy this wishlist", @wishlist, method: :delete %>
+  </div>
+<% end %>
