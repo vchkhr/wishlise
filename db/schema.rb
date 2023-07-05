@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_06_18_173149) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -42,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_173149) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "items", force: :cascade do |t|
+  create_table "items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.string "url"
     t.float "price"
@@ -68,24 +69,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_173149) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "username"
-    t.string "display_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "wishlists", force: :cascade do |t|
+  create_table "wishlists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title"
-    t.integer "publicity"
+    t.integer "publicity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_wishlists_on_user_id"
   end
 
   create_table "wishlists_items", force: :cascade do |t|
-    t.bigint "wishlist_id", null: false
-    t.bigint "item_id", null: false
+    t.uuid "wishlist_id", null: false
+    t.uuid "item_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_wishlists_items_on_item_id"

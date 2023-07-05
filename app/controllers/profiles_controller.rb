@@ -30,7 +30,7 @@ class ProfilesController < ApplicationController
   end
 
   def update_avatar
-    result = current_user.profile.update(profile_avatar_params)
+    result = current_user.profile.update(avatar: profile_params[:avatar])
 
     render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: "profiles/avatar_form", locals: { profile: current_user.profile, result: result })
   end
@@ -38,7 +38,7 @@ class ProfilesController < ApplicationController
   def destroy_avatar
     result = current_user.profile.update(avatar: nil)
 
-    render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: "profiles/avatar_form", locals: { profile: current_user.profile, result: "Profile photo was removed." })
+    render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: "profiles/avatar_form", locals: { profile: current_user.profile, result: "Profile image was removed." })
   end
 
   private
@@ -47,10 +47,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:username, :display_name)
-  end
-
-  def profile_avatar_params
-    params.require(:profile).permit(:avatar)
+    params[:profile]
   end
 end

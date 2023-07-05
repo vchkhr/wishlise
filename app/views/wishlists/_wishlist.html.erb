@@ -1,17 +1,26 @@
-<div id="<%= dom_id wishlist %>">
-  <p>
-    <strong>User:</strong>
-    <%= wishlist.user_id %>
-  </p>
+<div id="<%= dom_id wishlist %>" class="item outline">
+  <div className="content">
+    <div className="d-flex mb-2">
+      <h3 className="mb-0">
+        <%= wishlist.title %>
+      </h3>
+      <div className="ms-auto tags">
 
-  <p>
-    <strong>Title:</strong>
-    <%= wishlist.title %>
-  </p>
+      </div>
+    </div>
 
-  <p>
-    <strong>Publicity:</strong>
-    <%= wishlist.publicity %>
-  </p>
+    <div className="mb-2">
+      <code>
 
+      </code>
+    </div>
+
+    <p className="text-justify mb-2">
+      <%= WishlistsHelper::PUBLICITY_NAMES[wishlist.publicity.to_sym] %>
+    </p>
+
+    <div className="links">
+      <%= link_to "Open", wishlist_path(wishlist) %>
+    </div>
+  </div>
 </div>

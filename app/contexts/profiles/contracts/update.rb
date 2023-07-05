@@ -5,8 +5,8 @@ module Profiles
     class Update < ::ApplicationContract
       params do
         required(:user_id).filled(:integer)
-        required(:username).filled(:string)
-        optional(:display_name).maybe(:string)
+        required(:username).filled(:string, min_size?: 6)
+        optional(:display_name).maybe(:string, min_size?: 2)
         optional(:avatar).maybe(:string)
       end
 

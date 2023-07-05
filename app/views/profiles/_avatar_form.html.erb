@@ -3,9 +3,9 @@
     <div class="field mt-3">
       <% unless result.nil? %>
         <% if result == true %>
-          <div class="alert alert-success">Profile photo was updated successfully.</div>
+          <div class="alert alert-success">Profile image was updated successfully.</div>
         <% elsif result == false %>
-          <div class="alert alert-danger">Profile photo was not updated.</div>
+          <div class="alert alert-danger">Profile image was not updated.</div>
         <% else %>
           <div class="alert alert-info"><%= result %></div>
         <% end %>
@@ -23,7 +23,7 @@
           <%= f.file_field :avatar, data: { action: "change->profile-form#avatarSubmit", "profile-form-target": "avatarInput" } %>
 
           <% if profile.avatar.present? %>
-            <%= link_to "Remove profile image", profile_avatar_path(profile), data: { turbo_method: :delete }, class: "text-danger" %>
+            <%= link_to "Remove image", profile_avatar_path(profile), data: { turbo_method: :delete }, class: "text-danger" %>
           <% end %>
         </div>
       </div>

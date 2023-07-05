@@ -43,8 +43,14 @@ class ApplicationOperation
 
   # Validates specified dry-validation contract
   def Validate(contract_class, params, context = {})
-    attrs = params.class.respond_to?(:dry_initializer) ? params.class.dry_initializer.attributes(params) : params.to_h
+    attrs = if params.class.respond_to?(:dry_initializer)
+      params.class.dry_initializer.attributes(params)
+    else
+      params.to_enum.to_h
+    end
+
     result = contract_class.new.call(attrs, context)
+
     if result.success?
       Success(result.to_h)
     else

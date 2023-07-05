@@ -2,16 +2,14 @@
 
 module Wishlists
   module Contracts
-    class Update < ::ApplicationContract
+    class Show < ::ApplicationContract
       params do
         required(:id).filled(:string)
         required(:user_id).filled(:integer)
-        required(:title).filled(:string)
-        required(:publicity).filled(Dry::Types["string"].enum(*Wishlist.publicities.collect{ |name, _num| name }))
       end
 
       rule(:id) do
-        unless User.find(values[:user_id]).wishlists.find_by(id: value)
+        unless User.find(values[:user_id]).wishlists.find_by(id: value) || !Wishlist.find_by(id: value).hidden?
           key.failure("Wishlist not found.")
         end
       end

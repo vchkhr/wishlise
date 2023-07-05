@@ -1,14 +1,26 @@
 class WishlistsController < ApplicationController
   before_action :authenticate_user!
   before_action :complete_registration!
-  before_action :set_wishlist, only: %i[ show edit update destroy ]
 
   def index
-    @wishlists = current_user.wishlists
-    redirect_to new_wishlist_path if @wishlists.empty?
+    result = Wishlists::IndexOperation.new.call(params, current_user)
+
+    if result.success?
+      @wishlists = result.value!
+      redirect_to new_wishlist_path if @wishlists.empty?
+    else
+      redirect_to root_path, notice: "Unable to find wishlists."
+    end
   end
 
   def show
+    result = Wishlists::ShowOperation.new.call(params, current_user)
+
+    if result.success?
+      @wishlist = result.value!
+    else
+      redirect_to root_path, notice: "Wishlist not found."
+    end
   end
 
   def new
@@ -50,14 +62,11 @@ class WishlistsController < ApplicationController
 
   private
   def new_wishlist(params={})
+    params = params.permit(:title, :publicity) unless params.empty?
     current_user.wishlists.new(params)
   end
 
-  def set_wishlist
-    @wishlist = Wishlist.find(params[:id])
-  end
-
   def wishlist_params
-    params.require(:wishlist).permit(:title, :publicity)
+    params[:wishlist]
   end
 end
