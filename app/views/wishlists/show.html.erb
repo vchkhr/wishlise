@@ -1,5 +1,17 @@
 <%= turbo_frame_tag @wishlist do %>
-  <%= render @wishlist %>
+  <h1 class="text-center mt-5">Your Wishlists &#10024;</h1>
+
+  <div class="text-center mt-0">
+    <p>
+      <%= link_to "New wishlist", new_wishlist_path %>
+    </p>
+  </div>
+
+  <div id="wishlists" class="gallery">
+    <% @wishlists.each do |wishlist| %>
+      <%= render wishlist %>
+    <% end %>
+  </div>
 
   <div>
     <%= link_to "Edit this wishlist", edit_wishlist_path(@wishlist), data: { "turbo-action": "replace" } %> |
