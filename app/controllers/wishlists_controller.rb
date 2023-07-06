@@ -1,5 +1,5 @@
 class WishlistsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[ show ]
   before_action :complete_registration!
   before_action :set_wishlist, only: %i[ edit update ]
 
@@ -10,7 +10,7 @@ class WishlistsController < ApplicationController
       @wishlists = result.value!
       redirect_to new_wishlist_path if @wishlists.empty?
     else
-      redirect_to root_path, notice: "Unable to find wishlists."
+      redirect_to root_path, notice: result.failure[1].errors.messages.map!(&:text).join(". ")
     end
   end
 
@@ -20,7 +20,7 @@ class WishlistsController < ApplicationController
     if result.success?
       @wishlist = result.value!
     else
-      redirect_to root_path, notice: "Wishlist not found."
+      redirect_to root_path, notice: result.failure[1].errors.messages.map!(&:text).join(". ")
     end
   end
 

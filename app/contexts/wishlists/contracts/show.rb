@@ -5,7 +5,7 @@ module Wishlists
     class Show < ::ApplicationContract
       params do
         required(:id).filled(:string)
-        required(:user_id).filled(:integer)
+        optional(:user_id).maybe(:integer)
       end
 
       rule(:id) do
