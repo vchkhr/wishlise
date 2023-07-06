@@ -2,14 +2,14 @@
 
 module Wishlists
   module Contracts
-    class Show < ::ApplicationContract
+    class Destroy < ::ApplicationContract
       params do
         required(:id).filled(:string)
         required(:user_id).filled(:integer)
       end
 
       rule(:id) do
-        if Wishlist.find_by(id: value).nil? || (Wishlist.find_by(id: value).hidden? && User.find(values[:user_id]).wishlists.find_by(id: value).nil?)
+        unless User.find(values[:user_id]).wishlists.find_by(id: value)
           key.failure("Wishlist not found.")
         end
       end

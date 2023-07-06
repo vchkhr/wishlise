@@ -1,0 +1,5 @@
+<% if profile.avatar.present? %>
+  <%= image_tag profile.avatar, class: html_class %>
+<% else %>
+  <%= image_tag asset_path("avatar.png"), class: html_class %>
+<% end %>
