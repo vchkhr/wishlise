@@ -1,34 +1,27 @@
 class ItemsController < ApplicationController
-  # GET /items or /items.json
-  def index
-    @items = Item.all
-  end
+  before_action :authenticate_user!, except: %i[ show ]
+  before_action :complete_registration!
+  before_action :set_item, only: %i[ edit update ]
 
   # GET /items/1 or /items/1.json
   def show
   end
 
-  # GET /items/new
   def new
-    @item = Item.new
+    @item = new_item(params)
   end
 
   # GET /items/1/edit
   def edit
   end
 
-  # POST /items or /items.json
   def create
-    @item = Item.new(item_params)
+    result = Items::CreateOperation.new.call(item_params, current_user)
 
-    respond_to do |format|
-      if @item.save
-        format.html { redirect_to item_url(@item), notice: "Item was successfully created." }
-        format.json { render :show, status: :created, location: @item }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
-      end
+    if result.success?
+      redirect_to wishlist_path(result.value!.wishlist.id), notice: "Item was successfully added."
+    else
+      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: "items/form", locals: { item: new_item(item_params), errors: result.failure[1].errors.to_h })
     end
   end
 
@@ -53,5 +46,19 @@ class ItemsController < ApplicationController
       format.html { redirect_to items_url, notice: "Item was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def set_item
+    @item = Item.find_by(id: params[:id])
+  end
+
+  def new_item(params={})
+    params = params.permit(:wishlist_id, :title, :url, :price, :description) unless params.empty?
+    current_user.items.new(params)
+  end
+
+  def item_params
+    params[:item].permit(:wishlist_id, :title, :url, :price, :description)
   end
 end

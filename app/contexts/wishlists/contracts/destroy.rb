@@ -10,7 +10,7 @@ module Wishlists
 
       rule(:id) do
         unless User.find(values[:user_id]).wishlists.find_by(id: value)
-          key.failure("Wishlist not found.")
+          key.failure("Wishlist not found")
         end
       end
     end

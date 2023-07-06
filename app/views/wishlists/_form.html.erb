@@ -2,7 +2,7 @@
   <%= form_with model: wishlist, id: "wishlist-form", data: { "form-target": "form", "wishlist-form-target": "form", "form-errors": errors } do |f| %>
     <div class="field mt-3">
       <%= f.label :title, class: "form-label" %>
-      <%= f.text_field :title, class: "form-control", data: { "wishlist-form-target": "nameInput" } %>
+      <%= f.text_field :title, class: "form-control", autofocus: true, data: { "wishlist-form-target": "nameInput" } %>
       <div id="wishlist_title_text" class="form-text">Hint: Put an emoji in front of the wishlist name, for example: <span class="text-decoration-underline cursor-pointer" data-wishlist-form-target="nameBirthday">&#127874; Birthday</span>.</div>
     </div>
 
@@ -14,7 +14,7 @@
       <div class="btn-group d-flex">
         <% WishlistsHelper::CollectPublicities.new.call.each do |name, value| %>
           <%= radio_button_tag "wishlist[publicity]", value, value == wishlist.publicity, class: "btn-check" %>
-          <%= label_tag "wishlist_publicity_#{value}", name, class: "btn btn-outline-primary" %>
+          <%= label_tag "wishlist_publicity_#{value}", name.html_safe, class: "btn btn-outline-primary" %>
         <% end %>
       </div>
 

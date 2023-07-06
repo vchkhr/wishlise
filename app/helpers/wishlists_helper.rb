@@ -19,7 +19,7 @@ module WishlistsHelper
 
   class CollectPublicities
     def call
-      Wishlist.publicities.collect{ |name, num| [PUBLICITY_NAMES[name.to_sym], name] }
+      Wishlist.publicities.collect{ |name, num| ["<i class='fs-75 #{PUBLICITY_ICONS[name.to_sym]}'></i> #{PUBLICITY_NAMES[name.to_sym]}", name] }
     end
   end
 end

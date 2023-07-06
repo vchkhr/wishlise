@@ -6,13 +6,13 @@ module Wishlists
       params do
         required(:id).filled(:string)
         required(:user_id).filled(:integer)
-        required(:title).filled(:string)
+        required(:title).filled(:string, max_size?: 255)
         required(:publicity).filled(Dry::Types["string"].enum(*Wishlist.publicities.collect{ |name, _num| name }))
       end
 
       rule(:id) do
         unless User.find(values[:user_id]).wishlists.find_by(id: value)
-          key.failure("Wishlist not found.")
+          key.failure("Wishlist not found")
         end
       end
     end

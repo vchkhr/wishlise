@@ -10,6 +10,14 @@
   max-width: 400px;
 }
 
+.item-form {
+  max-width: 700px;
+
+  .price-field {
+    width: 150px;
+  }
+}
+
 .avatar {
   border-radius: 50px;
   width: 1em;

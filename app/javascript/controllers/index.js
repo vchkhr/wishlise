@@ -15,3 +15,6 @@ application.register("profile-form", ProfileFormController)
 
 import WishlistFormController from "./wishlist_form_controller.js"
 application.register("wishlist-form", WishlistFormController)
+
+import ItemFormController from "./item_form_controller.js"
+application.register("item-form", ItemFormController)

@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_one :profile
   has_many :wishlists
+  has_many :items, through: :wishlists
 end
