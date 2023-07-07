@@ -9,12 +9,12 @@
       </p>
 
       <div class="d-flex justify-content-center align-items-center gap-3">
-        <%= link_to "Edit this wishlist", edit_wishlist_path(@wishlist), data: { "turbo-action": "replace" } %>
+        <%= link_to "Edit this wishlist", edit_wishlist_path(@wishlist), data: { turbo_frame: "_top" } %>
         <%= button_to "Delete", @wishlist, method: :delete, class: "btn btn-link text-danger" %>
       </div>
 
       <div class="text-center mt-2">
-        <%= link_to new_item_path(wishlist_id: @wishlist), data: {turbo_frame: "_top"}, class: "btn btn-outline-success" do |link| %>
+        <%= link_to new_item_path(wishlist_id: @wishlist), data: { turbo_frame: "_top" }, class: "btn btn-outline-success" do |link| %>
           <i class="bi bi-plus-circle-dotted"></i> Add new item
         <% end %>
       </div>
@@ -38,13 +38,13 @@
             <div class="card h-100">
               <div class="card-body">
                 <h5 class="card-title">
-                  <%= link_to item.title || item.url, item_path(item), class: "text-decoration-none" %>
+                  <%= link_to item.title || item.url, item_path(item), class: "text-decoration-none", data: { turbo_frame: "_top" } %>
                 </h5>
 
                 <p class="card-text">
                   <small class="text-muted">
                     <% if item.url.present? %>
-                      <%= link_to "External URL to the #{URI.parse(item.url).host} <i class='bi bi-box-arrow-up-right'></i>".html_safe, item.url, class: "text-decoration-none" %><br>
+                      External URL: <%= link_to "#{URI.parse(item.url).host} <i class='bi bi-box-arrow-up-right'></i>".html_safe, item.url, class: "text-decoration-none", target: "_blank" %><br>
                     <% end %>
 
                     <% if item.price.present? %>

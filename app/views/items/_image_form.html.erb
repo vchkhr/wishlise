@@ -1,0 +1,26 @@
+<%= turbo_frame_tag :item_image_form_frame do %>
+  <%= form_for item, url: item_image_path(item), method: :PATCH, data: { controller: "image-form", "image-form-target": "imageForm" } do |f| %>
+    <div class="field mt-3">
+      <% unless result.nil? %>
+        <% if result == true %>
+          <div class="alert alert-success">Image was updated successfully.</div>
+        <% elsif result == false %>
+          <div class="alert alert-danger">Image was not updated.</div>
+        <% else %>
+          <div class="alert alert-info"><%= result %></div>
+        <% end %>
+      <% end %>
+
+      <div class="d-flex">
+        <div class="ms-3 align-self-center">
+          <%= f.label :image, "Image", class: "form-label" %>
+          <%= f.file_field :image, class: "form-control", data: { action: "change->image-form#imageSubmit" } %>
+
+          <% if item.image.present? %>
+            <%= link_to "Remove image", item_image_path(item), data: { turbo_method: :delete }, class: "text-danger" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

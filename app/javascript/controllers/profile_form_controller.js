@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "avatarForm", "submit"]
+  static targets = ["form", "submit"]
 
   connect() {
     this.fillFormValues();
@@ -14,9 +14,5 @@ export default class extends Controller {
       let input = this.formTarget.querySelector(`input[name*='${key}']`)
       input.value = value;
     }
-  }
-
-  avatarSubmit() {
-    this.avatarFormTarget.requestSubmit();
   }
 }

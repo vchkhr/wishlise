@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   delete "profiles/:id/avatar", to: "profiles#destroy_avatar"
 
   resources :wishlists
+
   resources :items, except: %i[ index ]
 end

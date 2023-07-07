@@ -31,4 +31,8 @@ export default class extends Controller {
       this.urlDescriptionFilledTarget.classList.remove("hidden");
     }
   }
+
+  imageSubmit() {
+    this.imageFormTarget.requestSubmit();
+  }
 }
