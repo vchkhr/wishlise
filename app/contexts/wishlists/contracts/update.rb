@@ -11,7 +11,7 @@ module Wishlists
       end
 
       rule(:id) do
-        unless User.find(values[:user_id]).wishlists.find_by(id: value)
+        if Wishlist.find_by(id: value).nil? || Wishlist.find_by(id: value).user_id != values[:user_id]
           key.failure("Wishlist not found")
         end
       end

@@ -1,5 +1,5 @@
 <%= turbo_frame_tag :item_image_form_frame do %>
-  <%= form_for item, url: item_image_path(item), method: :PATCH, data: { controller: "image-form", "image-form-target": "imageForm" } do |f| %>
+  <%= form_with model: item do |f| %>
     <div class="field mt-3">
       <% unless result.nil? %>
         <% if result == true %>

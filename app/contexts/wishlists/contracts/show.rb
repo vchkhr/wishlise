@@ -9,7 +9,7 @@ module Wishlists
       end
 
       rule(:id) do
-        if Wishlist.find_by(id: value).nil? || (Wishlist.find_by(id: value).hidden? && (values[:user_id].nil? || User.find(values[:user_id]).wishlists.find_by(id: value).nil?))
+        if Wishlist.find_by(id: value).nil? || (Wishlist.find_by(id: value).hidden? && (values[:user_id].nil? || Wishlist.find_by(id: value).user_id != values[:user_id]))
           key.failure("Wishlist not found")
         end
       end

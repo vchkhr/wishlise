@@ -9,7 +9,7 @@ module Items
       end
 
       rule(:id) do
-        if Item.find_by(id: value).nil? || (Item.find_by(id: value).wishlist.hidden? && (values[:user_id].nil? || User.find(values[:user_id]) != Item.find_by(id: value).wishlist.user))
+        if Item.find_by(id: value).nil? || (Item.find_by(id: value).wishlist.hidden? && (values[:user_id].nil? || Item.find_by(id: value).wishlist.user_id != values[:user_id]))
           key.failure("Item not found")
         end
       end

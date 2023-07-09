@@ -32,21 +32,26 @@
     </div>
 
     <% if current_user == @item.wishlist.user %>
-      <div class="d-flex justify-content-center align-items-center gap-3">
+      <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
+        <%= link_to "Back to the Wishlist", wishlist_path(@item.wishlist), data: { turbo_frame: "_top" } %>
         <%= link_to "Edit this item", edit_item_path(@item), data: { turbo_frame: "_top" } %>
-        <%= button_to "Delete", @item, method: :delete, class: "btn btn-link text-danger" %>
       </div>
       <div class="d-flex justify-content-center align-items-center gap-3">
-        <%# <%= render "image_form", item: @item, result: nil %> %>
+        <%= button_to "Delete this item", @item, method: :delete, class: "btn btn-link text-danger" %>
+      </div>
+      <div class="d-flex justify-content-center align-items-center gap-3">
+        <%# <%= render "image_form", item: @item, result: nil %>
       </div>
     <% else %>
-      <p class="text-center">
-        item by
+      <p class="text-center mt-3">
+        Item by
 
-        <%= link_to profile_path(@item.user.profile), class: "text-decoration-none" do |link| %>
-          <%= render partial: "profiles/avatar", locals: { profile: @item.user.profile, html_class: "avatar" } %>
-          <%= @item.user.profile.display_name %>
+        <%= link_to profile_path(@item.wishlist.user.profile), class: "text-decoration-none" do |link| %>
+          <%= render partial: "profiles/avatar", locals: { profile: @item.wishlist.user.profile, html_class: "avatar" } %>
+          <%= @item.wishlist.user.profile.display_name %>
         <% end %>
+
+        in the <%= link_to @item.wishlist.title, wishlist_path(@item.wishlist), class: "text-decoration-none", data: { turbo_frame: "_top" } %> wishlist.
       </p>
     <% end %>
 

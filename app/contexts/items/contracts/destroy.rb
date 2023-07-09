@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Wishlists
+module Items
   module Contracts
     class Destroy < ::ApplicationContract
       params do
@@ -9,8 +9,8 @@ module Wishlists
       end
 
       rule(:id) do
-        if Wishlist.find_by(id: value).nil? || Wishlist.find_by(id: value).user_id != values[:user_id]
-          key.failure("Wishlist not found")
+        if Item.find_by(id: value).nil? || Item.find_by(id: value).wishlist.user_id != values[:user_id]
+          key.failure("Item not found")
         end
       end
     end

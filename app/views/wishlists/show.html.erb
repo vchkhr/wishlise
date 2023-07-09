@@ -33,7 +33,7 @@
       <h6 class="text-center mt-5">This wishlist has no items yet.</h6>
     <% else %>
       <div id="items" class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-        <% @wishlist.items.each do |item| %>
+        <% @wishlist.items.order(updated_at: :desc).each do |item| %>
           <div id="<%= dom_id item %>" class="col">
             <div class="card h-100">
               <div class="card-body">

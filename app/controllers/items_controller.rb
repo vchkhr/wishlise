@@ -34,21 +34,32 @@ class ItemsController < ApplicationController
     result = Items::UpdateOperation.new.call(item_params.merge(id: params[:id]), current_user)
 
     if result.success?
+      # if item_params[:title].blank? && item_params[:url].blank?
+      #   if item_params[:image].blank?
+      #     notice = "Image was removed."
+      #   else
+      #     notice = "Image was updated."
+      #   end
+      # else
+      #   notice = "Item was successfully updated."
+      # end
+
       redirect_to item_path(@item), notice: "Item was successfully updated."
     else
       @item.assign_attributes(item_params)
 
-      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: "item/form", locals: { item: @item, errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: "items/form", locals: { item: @item, errors: result.failure[1].errors.to_h })
     end
   end
 
-  # DELETE /items/1 or /items/1.json
   def destroy
-    @item.destroy
+    wishlist = set_item.wishlist
+    result = Items::DestroyOperation.new.call({id: params[:id]}, current_user)
 
-    respond_to do |format|
-      format.html { redirect_to items_url, notice: "Item was successfully destroyed." }
-      format.json { head :no_content }
+    if result.success?
+      redirect_to wishlist_path(wishlist), notice: "Item was successfully deleted."
+    else
+      redirect_to wishlist_path(wishlist), notice: result.failure[1].errors.messages.map!(&:text).join(". ")
     end
   end
 
