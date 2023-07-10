@@ -3,20 +3,22 @@
     <div class="field mt-3">
       <div class="row">
         <div class="col">
-          <%= f.label :title, class: "form-label" %>
-          <%= f.text_field :title, class: "form-control", autofocus: true, data: { "item-form-target": "titleInput" } %>
+          <%= f.label :url, class: "form-label" %>
+          <%= f.url_field :url, class: "form-control", autofocus: true, data: { "item-form-target": "urlInput" } %>
         </div>
+
         <div class="col-1">
           <h5 class="mt-4 text-center">OR</h5>
         </div>
+
         <div class="col">
-          <%= f.label :url, class: "form-label" %>
-          <%= f.url_field :url, class: "form-control", data: { "item-form-target": "urlInput" } %>
+          <%= f.label :title, class: "form-label" %>
+          <%= f.text_field :title, class: "form-control", data: { "item-form-target": "titleInput" } %>
         </div>
       </div>
 
-      <div class="form-text text-end hidden" data-item-form-target="urlDescriptionEmpty">Paste the URL to fill in the missing data automatically.</div>
-      <div class="form-text text-end hidden" data-item-form-target="urlDescriptionFilled">Empty data will be filled after some time.</div>
+      <div class="form-text hidden" data-item-form-target="urlDescriptionEmpty">Paste the URL to fill in the missing data automatically.</div>
+      <div class="form-text hidden" data-item-form-target="urlDescriptionFilled">Empty data will be filled after some time.</div>
     </div>
 
     <div class="d-flex gap-3 mt-3">

@@ -1,4 +1,4 @@
-<% if profile.avatar.present? %>
+<% if profile.avatar.attached? %>
   <%= image_tag profile.avatar, class: html_class %>
 <% else %>
   <%= image_tag asset_path("avatar.png"), class: html_class %>

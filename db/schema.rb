@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_172806) do
     t.string "url"
     t.float "price"
     t.text "description"
+    t.boolean "is_being_parsed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["wishlist_id"], name: "index_items_on_wishlist_id"

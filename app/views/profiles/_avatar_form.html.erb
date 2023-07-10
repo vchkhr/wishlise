@@ -18,7 +18,7 @@
           <%= f.label :avatar, "Profile image", class: "form-label" %>
           <%= f.file_field :avatar, class: "form-control", data: { action: "change->image-form#imageSubmit" } %>
 
-          <% if profile.avatar.present? %>
+          <% if profile.avatar.attached? %>
             <%= link_to "Remove image", profile_avatar_path, data: { turbo_method: :delete }, class: "text-danger" %>
           <% end %>
         </div>

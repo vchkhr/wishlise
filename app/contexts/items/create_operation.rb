@@ -8,6 +8,7 @@ module Items
 
       @item = create_item
       update_wishlist
+      parse_external_data if @item.url.present?
 
       Success(@item)
     end
@@ -19,6 +20,11 @@ module Items
 
     def update_wishlist
       @item.wishlist.update(updated_at: Time.zone.now)
+    end
+
+    def parse_external_data
+      @item.update(is_being_parsed: true)
+      ParseExternalDataJob.perform_later(@item)
     end
   end
 end

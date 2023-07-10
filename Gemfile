@@ -66,6 +66,9 @@ gem 'dry-validation', '~> 1.10'
 # dry-schema provides a DSL for defining schemas with keys and rules that should be applied to values
 gem 'dry-schema', '~> 1.13', '>= 1.13.2'
 
+# Nokogiri makes it easy and painless to work with XML and HTML from Ruby
+gem 'nokogiri', '~> 1.15', '>= 1.15.3'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

@@ -8,6 +8,7 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.string :url
       t.float :price
       t.text :description
+      t.boolean :is_being_parsed, default: false
 
       t.timestamps
     end

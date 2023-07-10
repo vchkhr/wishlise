@@ -13,7 +13,7 @@ module Profiles
 
     private
     def update_profile
-      @current_user.profile.update(avatar: @attrs[:avatar])
+      @current_user.profile.avatar.attach(@attrs[:avatar])
     end
   end
 end

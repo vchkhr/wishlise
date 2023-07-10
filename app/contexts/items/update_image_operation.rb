@@ -18,7 +18,7 @@ module Items
     end
 
     def update_item
-      @item.update(image: @attrs[:image])
+      @item.image.attach(@attrs[:image])
     end
 
     def update_wishlist
