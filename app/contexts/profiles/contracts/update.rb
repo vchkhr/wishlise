@@ -7,7 +7,7 @@ module Profiles
         required(:user_id).filled(:integer)
         required(:username).filled(:string, min_size?: 6, max_size?: 255)
         optional(:display_name).maybe(:string, min_size?: 2, max_size?: 255)
-        optional(:avatar).maybe(:string)
+        optional(:avatar)
       end
 
       rule(:username) do

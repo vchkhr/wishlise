@@ -34,21 +34,17 @@
       </div>
     </div>
 
-    <div class="d-flex gap-3 mt-3">
-      <div class="field flex-fill">
-        <p class="mb-0"><%= f.label :wishlist_id, class: "form-label" %></p>
+    <div class="field flex-fill mt-3">
+      <p class="mb-0"><%= f.label :wishlist_id, class: "form-label" %></p>
 
-        <%= collection_radio_buttons("item", "wishlist_id", current_user.wishlists.order(updated_at: "desc"), :id, :title) do |b| %>
-          <%= b.radio_button class: "form-check-input", checked: (params[:item] && params[:item]["wishlist_id"]) == b.value || params[:wishlist_id] == b.value %>
-          <%= b.label class: "form-check-label" %><br>
-        <% end %>
-      </div>
-      <div class="field">
-      </div>
+      <%= collection_radio_buttons("item", "wishlist_id", current_user.wishlists.order(updated_at: "desc"), :id, :title) do |b| %>
+        <%= b.radio_button class: "form-check-input", checked: (params[:item] && params[:item]["wishlist_id"]) == b.value || params[:wishlist_id] == b.value %>
+        <%= b.label class: "form-check-label" %><br>
+      <% end %>
     </div>
 
     <div class="actions mt-3 d-flex">
-      <%= button_tag "Save", class: "btn btn-primary flex-fill item-form-submit", data: { "item-form-target": "submit" } %>
+      <%= button_tag "Save", class: "btn btn-primary flex-fill" %>
     </div>
   <% end %>
 <% end %>

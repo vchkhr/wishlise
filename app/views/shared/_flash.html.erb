@@ -1,5 +1,5 @@
 <%- flash.each do |type, msg| %>
   <div class="m-3 alert alert-<%= type == "notice" ? "info" : "danger" %>">
-    <%= msg %>
+    <%= msg %><%= "." if msg[-1] != "." %>
   </div>
 <% end %>

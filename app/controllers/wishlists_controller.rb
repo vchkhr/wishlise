@@ -35,7 +35,7 @@ class WishlistsController < ApplicationController
     result = Wishlists::CreateOperation.new.call(wishlist_params, current_user)
 
     if result.success?
-      redirect_to wishlist_path(result.value!.id), notice: "Wishlist was successfully created."
+      redirect_to wishlist_path(result.value!), notice: "Wishlist was successfully created."
     else
       render turbo_stream: turbo_stream.replace(:wishlist_form_frame, partial: "wishlists/form", locals: { wishlist: new_wishlist(wishlist_params), errors: result.failure[1].errors.to_h })
     end

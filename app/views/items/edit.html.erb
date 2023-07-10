@@ -1,8 +1,12 @@
 <%= turbo_frame_tag @item do %>
-  <div class="my-5 mx-auto item-form">
+  <div class="py-5 px-3 mx-auto item-form">
     <h2 class="text-center">
       Edit item
     </h2>
+
+    <p class="text-center">
+      <%= link_to "Back to the item", item_path(@item), data: { "turbo-frame": "_top" } %>
+    </p>
 
     <%= render "form", item: @item, errors: [], upload_image: true %>
   </div>

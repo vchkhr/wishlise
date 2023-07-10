@@ -1,8 +1,10 @@
 <%= turbo_frame_tag @wishlist do %>
-  <div class="my-5 mx-auto wishlist-form">
+  <div class="py-5 px-3 mx-auto wishlist-form">
     <h2 class="text-center">
-      Editing wishlist
+      Edit wishlist
     </h2>
+
+    <p class="text-center"><%= link_to "Back to wishlist", wishlist_path(@wishlist), data: { turbo_frame: "_top" } %>
 
     <%= render "form", wishlist: @wishlist, errors: [] %>
   </div>

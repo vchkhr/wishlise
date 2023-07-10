@@ -10,7 +10,8 @@ module Items
         optional(:url).maybe(format?: /\A\z|(?i)\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\z/)
         optional(:description).maybe(:string, max_size?: 255)
         optional(:price).maybe(:float, gt?: 0)
-        required(:wishlist_id).filled(:string)
+        optional(:image)
+        optional(:wishlist_id).maybe(:string)
       end
 
       rule(:id) do
@@ -20,8 +21,14 @@ module Items
       end
 
       rule(:title) do
-        if value.blank? && values[:url].blank?
+        if value.blank? && values[:url].blank? && values[:image].blank?
           key.failure("At least Title or URL should be specified")
+        end
+      end
+
+      rule(:wishlist_id) do
+        if value.blank? && values[:image].blank?
+          key.failure("Wishlist should be specified")
         end
       end
     end

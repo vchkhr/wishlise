@@ -1,6 +1,6 @@
 <%= turbo_frame_tag @wishlist, data: { controller: "turbo-form-redirect" } do %>
-  <div class="px-3">
-    <h1 class="text-center mt-5"><%= @wishlist.title %></h1>
+  <div class="py-5 px-3">
+    <h2 class="text-center"><%= @wishlist.title %></h2>
 
     <% if current_user == @wishlist.user %>
       <p class="text-center mb-0">
@@ -36,6 +36,10 @@
         <% @wishlist.items.order(updated_at: :desc).each do |item| %>
           <div id="<%= dom_id item %>" class="col">
             <div class="card h-100">
+              <% if item.image.present? %>
+                <%= image_tag item.image, alt: item.title || item.url, class: "caard-img-top" %>
+              <% end %>
+
               <div class="card-body">
                 <h5 class="card-title">
                   <%= link_to item.title || item.url, item_path(item), class: "text-decoration-none", data: { turbo_frame: "_top" } %>

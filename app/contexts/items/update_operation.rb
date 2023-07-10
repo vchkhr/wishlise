@@ -6,7 +6,8 @@ module Items
       @attrs = yield Validate(Contracts::Update, params.merge(user_id: current_user.id))
 
       @item = find_item
-      @item = update_item
+      update_item
+      update_wishlist
 
       Success(@item)
     end
@@ -18,6 +19,10 @@ module Items
 
     def update_item
       @item.update(@attrs.except(:user_id))
+    end
+
+    def update_wishlist
+      @item.wishlist.update(updated_at: Time.zone.now)
     end
   end
 end

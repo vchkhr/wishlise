@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: %i[ show ]
   before_action :complete_registration!
-  before_action :set_item, only: %i[ edit update ]
+  before_action :set_item, only: %i[ edit update destroy update_image destroy_image ]
 
   def show
     result = Items::ShowOperation.new.call(params, current_user)
@@ -34,16 +34,6 @@ class ItemsController < ApplicationController
     result = Items::UpdateOperation.new.call(item_params.merge(id: params[:id]), current_user)
 
     if result.success?
-      # if item_params[:title].blank? && item_params[:url].blank?
-      #   if item_params[:image].blank?
-      #     notice = "Image was removed."
-      #   else
-      #     notice = "Image was updated."
-      #   end
-      # else
-      #   notice = "Item was successfully updated."
-      # end
-
       redirect_to item_path(@item), notice: "Item was successfully updated."
     else
       @item.assign_attributes(item_params)
@@ -53,7 +43,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    wishlist = set_item.wishlist
+    wishlist = @item.wishlist
     result = Items::DestroyOperation.new.call({id: params[:id]}, current_user)
 
     if result.success?
@@ -61,6 +51,22 @@ class ItemsController < ApplicationController
     else
       redirect_to wishlist_path(wishlist), notice: result.failure[1].errors.messages.map!(&:text).join(". ")
     end
+  end
+
+  def update_image
+    result = Items::UpdateOperation.new.call(image_params.merge(id: params[:id]), current_user)
+
+    if result.success?
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/item", locals: { item: @item })
+    else
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/item", locals: { item: @item, errors: result.failure[1].errors.to_h })
+    end
+  end
+
+  def destroy_image
+    result = current_user.profile.update(image: nil)
+
+    render turbo_stream: turbo_stream.replace(:profile_image_form_frame, partial: "profiles/image_form", locals: { profile: current_user.profile, result: "Profile image was removed." })
   end
 
   private
@@ -75,5 +81,9 @@ class ItemsController < ApplicationController
 
   def item_params
     params[:item].permit(:wishlist_id, :title, :url, :price, :description)
+  end
+
+  def image_params
+    params[:item].permit(:image)
   end
 end

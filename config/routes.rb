@@ -12,10 +12,12 @@ Rails.application.routes.draw do
   resources :profiles, only: %i[ edit update ]
   get "complete_registration", to: "profiles#complete_registration", as: "complete_registration"
 
-  patch "profiles/:id/avatar", to: "profiles#update_avatar", as: "profile_avatar"
-  delete "profiles/:id/avatar", to: "profiles#destroy_avatar"
+  patch "profile/avatar", to: "profiles#update_avatar", as: "profile_avatar"
+  delete "profile/avatar", to: "profiles#destroy_avatar"
 
   resources :wishlists
 
   resources :items, except: %i[ index ]
+  patch "items/:id/image", to: "items#update_image", as: "item_image"
+  delete "items/:id/image", to: "items#destroy_image"
 end

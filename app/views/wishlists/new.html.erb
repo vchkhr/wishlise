@@ -1,12 +1,16 @@
 <%= turbo_frame_tag @wishlist do %>
-  <div class="my-5 mx-auto wishlist-form">
-    <h1 class="text-center">
-      <% if current_user.wishlists.count == 0 %>
+  <div class="py-5 px-3 mx-auto wishlist-form">
+    <% if current_user.wishlists.count == 0 %>
+      <h2 class="text-center">
         It's time to create your first wishlist &#129668;
-      <% else %>
+      </h2>
+    <% else %>
+      <h2 class="text-center">
         New wishlist
-      <% end %>
-    </h1>
+      </h2>
+
+      <p class="text-center"><%= link_to "Back to wishlists", wishlists_path, data: { turbo_frame: "_top" } %>
+    <% end %>
 
     <%= render "form", wishlist: @wishlist, errors: [] %>
   </div>
