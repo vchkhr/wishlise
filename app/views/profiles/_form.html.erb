@@ -1,12 +1,18 @@
 <%= turbo_frame_tag :profile_form_frame, data: { controller: "turbo-form-redirect profile-form" } do %>
   <div class="my-5 mx-auto profile-form">
-    <h2 class="text-center">
-      <% if profile.username %>
+    <% if profile.username %>
+      <h2 class="text-center">
         Edit profile
-      <% else %>
+      </h2>
+
+      <p class="text-center">
+        <%= link_to "Update email, password or delete an account", edit_user_registration_path, data: { turbo_frame: "_top" } %>
+      </p>
+    <% else %>
+      <h2 class="text-center">
         Let's complete your registration &#129668;
-      <% end %>
-    </h2>
+      </h2>
+    <% end %>
 
     <%= form_with model: profile, id: "profile-form", data: { controller: "form", "form-target": "form", "profile-form-target": "form", "form-values": values, "form-errors": errors } do |f| %>
       <div class="field mt-3">
