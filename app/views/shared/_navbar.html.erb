@@ -3,13 +3,18 @@
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <% if current_user %>
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><%= link_to "Wishlists", wishlists_path, class: "nav-link px-2 text-#{request.env['PATH_INFO'] == wishlists_path ? "secondary" : "white" }" %></li>
+          <% if current_user.profile.username && current_user.wishlists.where.not(id: nil).present? %>
+            <li><%= link_to "Wishlists", wishlists_path, class: "nav-link px-2 text-#{request.env['PATH_INFO'] == wishlists_path ? "secondary" : "white" }" %></li>
+
+            <li><%= link_to "Add new item", new_item_path, class: "nav-link px-2 text-#{request.env['PATH_INFO'] == new_item_path ? "secondary" : "white" }" %></li>
+
+            <li><%= link_to "Profile", profile_by_username_path(current_user.profile.username), class: "nav-link px-2 text-#{request.env['PATH_INFO'] == profile_by_username_path(current_user.profile.username) ? "secondary" : "white" }" %></li>
+          <% end %>
         </ul>
       <% else %>
         <%= link_to "Home", root_path, class: "d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none" %>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li></li>
         </ul>
       <% end %>
 

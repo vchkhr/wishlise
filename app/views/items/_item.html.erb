@@ -48,7 +48,7 @@
               <p class="text-center mt-3">
                 Item by
 
-                <%= link_to profile_path(item.wishlist.user.profile), class: "text-decoration-none" do |link| %>
+                <%= link_to profile_by_username_path(item.wishlist.user.profile.username), data: { turbo_frame: "_top" }, class: "text-decoration-none" do |link| %>
                   <%= render partial: "profiles/avatar", locals: { profile: item.wishlist.user.profile, html_class: "avatar" } %>
                   <%= item.wishlist.user.profile.display_name %>
                 <% end %>

@@ -2,7 +2,7 @@
   <div class="my-5 mx-auto profile-form">
     <h2 class="text-center">
       <% if profile.username %>
-        Editing profile
+        Edit profile
       <% else %>
         Let's complete your registration &#129668;
       <% end %>
@@ -12,7 +12,7 @@
       <div class="field mt-3">
         <%= f.label :username, class: "form-label" %>
         <%= f.text_field :username, class: "form-control" %>
-        <div id="profile_username_text" class="form-text">You will be able to share a link to your profile with your username: <i>www.<%= ENV['HOST'] %>/users/username</i>.</div>
+        <div id="profile_username_text" class="form-text">You will be able to share a link to your profile with your username: <i>www.<%= ENV['HOST'] %>/profiles/username</i>.</div>
       </div>
 
       <div class="field mt-3">

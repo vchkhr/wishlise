@@ -22,7 +22,7 @@
       <p class="text-center">
         Wishlist by
 
-        <%= link_to profile_path(@wishlist.user.profile), class: "text-decoration-none" do |link| %>
+        <%= link_to profile_by_username_path(@wishlist.user.profile.username), class: "text-decoration-none", data: { turbo_frame: "_top" } do |link| %>
           <%= render partial: "profiles/avatar", locals: { profile: @wishlist.user.profile, html_class: "avatar" } %>
           <%= @wishlist.user.profile.display_name %>
         <% end %>

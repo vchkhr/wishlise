@@ -1,6 +1,11 @@
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_profile, only: %i[ edit complete_registration update ]
+  before_action :authenticate_user!, except: %i[ show ]
+  before_action :set_profile, only: %i[ show ]
+  before_action :set_current_profile, only: %i[ edit complete_registration update ]
+
+  def show
+    redirect_to root_url, notice: "Profile not found." unless @profile
+  end
 
   def edit
   end
@@ -22,7 +27,7 @@ class ProfilesController < ApplicationController
       if previous_username.nil?
         redirect_to root_url, notice: "You have completed the registration."
       else
-        # TODO: notice: "Profile was successfully updated."
+        redirect_to profile_by_username_path(current_user.profile.username), notice: "Profile was successfully updated."
       end
     else
       render turbo_stream: turbo_stream.replace(:profile_form_frame, partial: "profiles/form", locals: { profile: current_user.profile, values: profile_params, errors: result.failure[1].errors.to_h })
@@ -43,6 +48,10 @@ class ProfilesController < ApplicationController
 
   private
   def set_profile
+    @profile = Profile.find_by(username: params[:username])
+  end
+
+  def set_current_profile
     @profile = current_user.profile
   end
 

@@ -1,22 +1,28 @@
-<div id="<%= dom_id profile %>">
-  <p>
-    <strong>User:</strong>
-    <%= profile.user_id %>
-  </p>
+<%= turbo_frame_tag profile, data: { controller: "turbo-form-redirect" } do %>
+  <div class="py-5 px-3">
+    <h1 class="text-center">
+      <%= render partial: "profiles/avatar", locals: { profile: profile.user.profile, html_class: "avatar" } %>
+      <%= profile.display_name %>
+    </h1>
 
-  <p>
-    <strong>Username:</strong>
-    <%= profile.username %>
-  </p>
+    <% if current_user == profile.user %>
+      <div class="d-flex justify-content-center align-items-center gap-3">
+        <%= link_to "Edit profile", edit_profile_path(profile), data: { turbo_frame: "_top" } %>
+      </div>
+    <% end %>
 
-  <p>
-    <strong>Display name:</strong>
-    <%= profile.display_name %>
-  </p>
-
-  <p>
-    <strong>Avatar:</strong>
-    <%= link_to profile.avatar.filename, profile.avatar if profile.avatar.attached? %>
-  </p>
-
-</div>
+    <% if profile.user.wishlists.listed.empty? %>
+      <% if current_user == profile.user %>
+        <h6 class="text-center mt-5">You don't have public wishlists. <%= link_to "See all wishlists", wishlists_path, data: { turbo_frame: "_top" } %></h6>
+      <% else %>
+        <h6 class="text-center mt-5">No wishlists yet.</h6>
+      <% end %>
+    <% else %>
+      <div id="wishlists" class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+        <% profile.user.wishlists.listed.each do |wishlist| %>
+          <%= render partial: "wishlists/wishlist", locals: { wishlist: wishlist } %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

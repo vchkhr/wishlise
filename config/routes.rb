@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :profiles, only: %i[ edit update ]
+  get "profiles/:username", to: "profiles#show", as: "profile_by_username"
   get "complete_registration", to: "profiles#complete_registration", as: "complete_registration"
 
   patch "profile/avatar", to: "profiles#update_avatar", as: "profile_avatar"
