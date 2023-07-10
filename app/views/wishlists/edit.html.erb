@@ -4,7 +4,9 @@
       Edit wishlist
     </h2>
 
-    <p class="text-center"><%= link_to "Back to wishlist", wishlist_path(@wishlist), data: { turbo_frame: "_top" } %>
+    <p class="text-center">
+      <%= link_to "Back to wishlist", wishlist_path(@wishlist), data: { turbo_frame: "_top" } %>
+    </p>
 
     <%= render "form", wishlist: @wishlist, errors: [] %>
   </div>

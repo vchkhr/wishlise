@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
   end
 
   def update_image
-    result = Items::UpdateOperation.new.call(image_params.merge(id: params[:id]), current_user)
+    result = Items::UpdateImageOperation.new.call(image_params.merge(id: params[:id]), current_user)
 
     if result.success?
       render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/item", locals: { item: @item })
@@ -64,9 +64,13 @@ class ItemsController < ApplicationController
   end
 
   def destroy_image
-    result = current_user.profile.update(image: nil)
+    result = Items::UpdateImageOperation.new.call({id: params[:id], image: nil}, current_user)
 
-    render turbo_stream: turbo_stream.replace(:profile_image_form_frame, partial: "profiles/image_form", locals: { profile: current_user.profile, result: "Profile image was removed." })
+    if result.success?
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/item", locals: { item: @item })
+    else
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/item", locals: { item: @item, errors: result.failure[1].errors.to_h })
+    end
   end
 
   private

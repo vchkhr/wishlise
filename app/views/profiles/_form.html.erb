@@ -1,4 +1,4 @@
-<%= turbo_frame_tag :profile_form_frame, data: { controller: "turbo-form-redirect form profile-form" } do %>
+<%= turbo_frame_tag :profile_form_frame, data: { controller: "turbo-form-redirect profile-form" } do %>
   <div class="my-5 mx-auto profile-form">
     <h2 class="text-center">
       <% if profile.username %>
@@ -8,7 +8,7 @@
       <% end %>
     </h2>
 
-    <%= form_with model: profile, id: "profile-form", data: { "form-target": "form", "profile-form-target": "form", "form-values": values, "form-errors": errors } do |f| %>
+    <%= form_with model: profile, id: "profile-form", data: { controller: "form", "form-target": "form", "profile-form-target": "form", "form-values": values, "form-errors": errors } do |f| %>
       <div class="field mt-3">
         <%= f.label :username, class: "form-label" %>
         <%= f.text_field :username, class: "form-control" %>

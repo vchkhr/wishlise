@@ -1,5 +1,5 @@
-<%= turbo_frame_tag :item_form_frame, data: { controller: "turbo-form-redirect form item-form" } do %>
-  <%= form_with model: item, id: "item-form", data: { "form-target": "form", "form-errors": errors, "item-form-target": "form" } do |f| %>
+<%= turbo_frame_tag :item_form_frame, data: { controller: "turbo-form-redirect" } do %>
+  <%= form_with model: item, data: { controller: "form item-form", "form-target": "form", "form-errors": errors, "item-form-target": "form" } do |f| %>
     <div class="field mt-3">
       <div class="row">
         <div class="col">
