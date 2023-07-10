@@ -1,5 +1,5 @@
-<%= turbo_frame_tag :wishlist_form_frame, data: { controller: "turbo-form-redirect form wishlist-form" } do %>
-  <%= form_with model: wishlist, id: "wishlist-form", data: { "form-target": "form", "wishlist-form-target": "form", "form-errors": errors } do |f| %>
+<%= turbo_frame_tag :wishlist_form_frame, data: { controller: "turbo-form-redirect" } do %>
+  <%= form_with model: wishlist, id: "wishlist-form", data: { controller: "form wishlist-form", "form-target": "form", "wishlist-form-target": "form", "form-errors": errors } do |f| %>
     <div class="field mt-3">
       <%= f.label :title, class: "form-label" %>
       <%= f.text_field :title, class: "form-control", autofocus: true, data: { "wishlist-form-target": "nameInput" } %>
