@@ -35,35 +35,7 @@
       <div id="items" class="row row-cols-1 row-cols-md-3 g-4 mt-3">
         <% @wishlist.items.order(updated_at: :desc).each do |item| %>
           <div id="<%= dom_id item %>" class="col">
-            <div class="card h-100">
-              <% if item.image.present? %>
-                <%= image_tag item.image, alt: item.title || item.url, class: "caard-img-top" %>
-              <% end %>
-
-              <div class="card-body">
-                <h5 class="card-title">
-                  <%= link_to item.title || item.url, item_path(item), class: "text-decoration-none", data: { turbo_frame: "_top" } %>
-                </h5>
-
-                <p class="card-text">
-                  <small class="text-muted">
-                    <% if item.url.present? %>
-                      External URL: <%= link_to "#{URI.parse(item.url).host} <i class='bi bi-box-arrow-up-right'></i>".html_safe, item.url, class: "text-decoration-none", target: "_blank" %><br>
-                    <% end %>
-
-                    <% if item.price.present? %>
-                      Listed price: <%= item.price %>.<br>
-                    <% end %>
-
-                    <% if item.description.present? %>
-                      Description: <%= item.description %><%= "." if item.description[-1] != "." %><br>
-                    <% end %>
-
-                    Last updated <%= time_ago_in_words(item.updated_at) %> ago.
-                  </small>
-                </p>
-              </div>
-            </div>
+            <%= render partial: "items/item", locals: { item: item, show_footer: false } %>
           </div>
         <% end %>
       </div>

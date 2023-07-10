@@ -58,9 +58,9 @@ class ItemsController < ApplicationController
     result = Items::UpdateImageOperation.new.call(image_params.merge(id: params[:id]), current_user)
 
     if result.success?
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/item", locals: { item: @item })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/show", locals: { item: @item })
     else
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/item", locals: { item: @item, errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/show", locals: { item: @item, errors: result.failure[1].errors.to_h })
     end
   end
 
@@ -68,9 +68,9 @@ class ItemsController < ApplicationController
     result = Items::UpdateImageOperation.new.call({id: params[:id], image: nil}, current_user)
 
     if result.success?
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/item", locals: { item: @item })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/show", locals: { item: @item })
     else
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/item", locals: { item: @item, errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/show", locals: { item: @item, errors: result.failure[1].errors.to_h })
     end
   end
 

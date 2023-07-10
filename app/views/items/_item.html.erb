@@ -1,65 +1,70 @@
-<%= turbo_frame_tag item, data: { controller: "turbo-form-redirect" } do %>
-  <div class="py-3 px-3">
+<div class="card h-100">
+  <% if item.image.present? %>
+    <%= image_tag item.image, alt: item.title || item.url, class: "caard-img-top" %>
+  <% end %>
 
-    <div id="items" class="row justify-content-center row-cols-1 row-cols-lg-2 g-4 mt-3">
-      <div class="col">
-        <div class="card h-100">
-          <% if item.image.present? %>
-            <%= image_tag item.image, alt: item.title || item.url, class: "caard-img-top" %>
+  <div class="card-body">
+    <h5 class="card-title placeholder-glow">
+      <%= link_to item_path(item), class: "text-decoration-none", data: { turbo_frame: "_top" } do |link| %>
+        <% if item.title %>
+          <%= item.title %>
+        <% elsif item.title.nil? && item.url.present? %>
+          <span class="placeholder w-25"></span>
+          <span class="placeholder w-50"></span>
+        <% else %>
+          <%= URI.parse(item.url).host %><%= URI.parse(item.url).path %>
+        <% end %>
+      <% end %>
+    </h5>
+
+    <p class="card-text placeholder-glow">
+      <small class="text-muted">
+        <% if item.url.present? %>
+          External URL: <%= link_to "#{URI.parse(item.url).host} <i class='bi bi-box-arrow-up-right'></i>".html_safe, item.url, class: "text-decoration-none", target: "_blank" %><br>
+        <% end %>
+
+        <% if item.price.present? %>
+          Listed price: <%= item.price %>.<br>
+        <% elsif item.price.nil? && item.url.present? %>
+          Listed price: <span class="placeholder col-1"></span>.<br>
+        <% end %>
+
+        <% if item.description.present? %>
+          Description: <%= item.description %><%= "." if item.description[-1] != "." %><br>
+        <% elsif item.description.nil? && item.url.present? %>
+          Description: <span class="placeholder col-2"></span> <span class="placeholder col-3"></span> <span class="placeholder col-1"></span>.<br>
+        <% end %>
+
+        Last updated <%= time_ago_in_words(item.updated_at) %> ago.
+      </small>
+    </p>
+  </div>
+
+  <% if show_footer %>
+    <div class="card-footer">
+      <% if current_user == item.wishlist.user %>
+        <div class="d-flex justify-content-center align-items-center gap-3">
+          <%= render "items/image_form", item: item, result: nil %>
+        </div>
+        <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
+          <%= link_to "Back to the wishlist", wishlist_path(item.wishlist), data: { turbo_frame: "_top" } %>
+          <%= link_to "Edit this item", edit_item_path(item), data: { turbo_frame: "_top" } %>
+        </div>
+        <div class="d-flex justify-content-center align-items-center gap-3">
+          <%= button_to "Delete this item", item, method: :delete, class: "btn btn-link text-danger" %>
+        </div>
+      <% else %>
+        <p class="text-center mt-3">
+          Item by
+
+          <%= link_to profile_by_username_path(item.wishlist.user.profile.username), data: { turbo_frame: "_top" }, class: "text-decoration-none" do |link| %>
+            <%= render partial: "profiles/avatar", locals: { profile: item.wishlist.user.profile, html_class: "avatar" } %>
+            <%= item.wishlist.user.profile.display_name %>
           <% end %>
 
-          <div class="card-body">
-            <h5 class="card-title">
-              <%= link_to item.title || item.url, item_path(item), class: "text-decoration-none", data: { turbo_frame: "_top" } %>
-            </h5>
-
-            <p class="card-text">
-              <small class="text-muted">
-                <% if item.url.present? %>
-                  External URL: <%= link_to "#{URI.parse(item.url).host} <i class='bi bi-box-arrow-up-right'></i>".html_safe, item.url, class: "text-decoration-none", target: "_blank" %><br>
-                <% end %>
-
-                <% if item.price.present? %>
-                  Listed price: <%= item.price %>.<br>
-                <% end %>
-
-                <% if item.description.present? %>
-                  Description: <%= item.description %><%= "." if item.description[-1] != "." %><br>
-                <% end %>
-
-                Last updated <%= time_ago_in_words(item.updated_at) %> ago.
-              </small>
-            </p>
-          </div>
-
-          <div class="card-footer">
-            <% if current_user == item.wishlist.user %>
-              <div class="d-flex justify-content-center align-items-center gap-3">
-                <%= render "image_form", item: item, result: nil %>
-              </div>
-              <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
-                <%= link_to "Back to the wishlist", wishlist_path(item.wishlist), data: { turbo_frame: "_top" } %>
-                <%= link_to "Edit this item", edit_item_path(item), data: { turbo_frame: "_top" } %>
-              </div>
-              <div class="d-flex justify-content-center align-items-center gap-3">
-                <%= button_to "Delete this item", item, method: :delete, class: "btn btn-link text-danger" %>
-              </div>
-            <% else %>
-              <p class="text-center mt-3">
-                Item by
-
-                <%= link_to profile_by_username_path(item.wishlist.user.profile.username), data: { turbo_frame: "_top" }, class: "text-decoration-none" do |link| %>
-                  <%= render partial: "profiles/avatar", locals: { profile: item.wishlist.user.profile, html_class: "avatar" } %>
-                  <%= item.wishlist.user.profile.display_name %>
-                <% end %>
-
-                in the <%= link_to item.wishlist.title, wishlist_path(item.wishlist), class: "text-decoration-none", data: { turbo_frame: "_top" } %> wishlist.
-              </p>
-            <% end %>
-
-          </div>
-        </div>
-      </div>
+          in the <%= link_to item.wishlist.title, wishlist_path(item.wishlist), class: "text-decoration-none", data: { turbo_frame: "_top" } %> wishlist.
+        </p>
+      <% end %>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
