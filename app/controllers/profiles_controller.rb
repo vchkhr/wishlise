@@ -35,15 +35,23 @@ class ProfilesController < ApplicationController
   end
 
   def update_avatar
-    result = current_user.profile.update(avatar: profile_params[:avatar])
+    result = Profiles::UpdateAvatarOperation.new.call(profile_params, current_user)
 
-    render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: "profiles/avatar_form", locals: { profile: current_user.profile, result: result })
+    if result.success?
+      render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: "profiles/avatar_form", locals: { profile: current_user.profile, result: "Profile image was updated." })
+    else
+      render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: "profiles/avatar_form", locals: { profile: current_user.profile, result: result.failure[1].errors.to_h })
+    end
   end
 
   def destroy_avatar
-    result = current_user.profile.update(avatar: nil)
+    result = Profiles::UpdateAvatarOperation.new.call({avatar: nil}, current_user)
 
-    render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: "profiles/avatar_form", locals: { profile: current_user.profile, result: "Profile image was removed." })
+    if result.success?
+      render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: "profiles/avatar_form", locals: { profile: current_user.profile, result: "Profile image was removed." })
+    else
+      render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: "profiles/avatar_form", locals: { profile: current_user.profile, result: result.failure[1].errors.to_h })
+    end
   end
 
   private

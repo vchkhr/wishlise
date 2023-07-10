@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
   end
 
   def new
+    redirect_to new_wishlist_path if current_user.wishlists.empty?
     @item = new_item(params)
   end
 
