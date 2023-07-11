@@ -146,6 +146,13 @@ GEM
       zeitwerk (~> 2.6)
     erubi (1.12.0)
     execjs (2.8.1)
+    factory_bot (6.2.1)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
+    faker (3.2.0)
+      i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -226,10 +233,6 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-    rails_real_favicon (0.1.1)
-      json (>= 1.7, < 3)
-      rails
-      rubyzip (~> 2)
     railties (7.0.5)
       actionpack (= 7.0.5)
       activesupport (= 7.0.5)
@@ -349,6 +352,8 @@ DEPENDENCIES
   dry-monads (~> 1.6)
   dry-schema (~> 1.13, >= 1.13.2)
   dry-validation (~> 1.10)
+  factory_bot_rails (~> 6.2)
+  faker (~> 3.2)
   image_processing (~> 1.12, >= 1.12.2)
   importmap-rails
   jbuilder
@@ -356,7 +361,6 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0, >= 7.0.5)
-  rails_real_favicon
   rspec-rails (~> 6.0, >= 6.0.3)
   rubocop
   selenium-webdriver

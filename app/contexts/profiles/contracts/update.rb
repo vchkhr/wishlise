@@ -10,7 +10,7 @@ module Profiles
       end
 
       rule(:username) do
-        key.failure('Username must be unique') if Profile.where(username: value).where.not(user_id: values[:user_id]).present?
+        key.failure('must be unique') if Profile.where(username: value).where.not(user_id: values[:user_id]).present?
       end
     end
   end
