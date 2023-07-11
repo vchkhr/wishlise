@@ -13,6 +13,7 @@ module Items
     end
 
     private
+
     def find_item
       Item.find(@attrs[:id])
     end

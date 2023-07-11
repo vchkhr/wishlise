@@ -14,6 +14,7 @@ module Items
     end
 
     private
+
     def create_item
       Item.create(@attrs.except(:user_id))
     end

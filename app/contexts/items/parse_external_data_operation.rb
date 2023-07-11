@@ -33,17 +33,17 @@ module Items
     end
 
     def parse_title
-      title = @doc.xpath("//*[@data-name]/@data-name").first ||
-        @doc.xpath("//*[@itemprop='name']//text()").first ||
-        @doc.xpath("//meta[@property='og:title']/@content").first
+      title = @doc.xpath('//*[@data-name]/@data-name').first ||
+              @doc.xpath("//*[@itemprop='name']//text()").first ||
+              @doc.xpath("//meta[@property='og:title']/@content").first
       title.nil? ? "#{URI.parse(@item.url).host}#{URI.parse(@item.url).path}" : title.text.strip
     end
 
     def parse_description
       description = @doc.xpath("//*[@itemprop='description']//text()").first ||
-        @doc.xpath("//*[@data-description]/@data-description").first ||
-        @doc.xpath("//meta[@property='og:description']/@content").first
-      description.nil? ? "" : description.text.strip
+                    @doc.xpath('//*[@data-description]/@data-description').first ||
+                    @doc.xpath("//meta[@property='og:description']/@content").first
+      description.nil? ? '' : description.text.strip
     end
 
     def parse_amount(string)
@@ -61,25 +61,25 @@ module Items
     end
 
     def parse_price
-      price = @doc.xpath("//*[@data-price]/@data-price").first ||
-        @doc.xpath("//*[@itemprop='price']//text()").first ||
-        @doc.xpath("//meta[@property='product:price:amount']/@content").first ||
-        @doc.xpath("//meta[@property='product:price']/@content").first ||
-        @doc.xpath("//meta[@property='price']/@content").first ||
-        @doc.xpath("//*[contains(@class, 'product-price')]//text()").first
-      price.nil? ? "" : parse_amount(price.text.strip)
+      price = @doc.xpath('//*[@data-price]/@data-price').first ||
+              @doc.xpath("//*[@itemprop='price']//text()").first ||
+              @doc.xpath("//meta[@property='product:price:amount']/@content").first ||
+              @doc.xpath("//meta[@property='product:price']/@content").first ||
+              @doc.xpath("//meta[@property='price']/@content").first ||
+              @doc.xpath("//*[contains(@class, 'product-price')]//text()").first
+      price.nil? ? '' : parse_amount(price.text.strip)
     end
 
     def update_image(image, image_url)
       @item.image.attach(
         io: image,
-        filename: URI.parse(image_url).path.split("/").last
+        filename: URI.parse(image_url).path.split('/').last
       )
     end
 
     def parse_image
       image_url = @doc.xpath("//meta[@property='og:image']/@content").first
-      image = image_url.nil? ? "" : URI.open(image_url.text.strip)
+      image = image_url.nil? ? '' : URI.open(image_url.text.strip)
       update_image(image, image_url) if image.present?
     end
 

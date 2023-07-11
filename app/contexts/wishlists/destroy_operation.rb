@@ -12,6 +12,7 @@ module Wishlists
     end
 
     private
+
     def find_wishlist
       Wishlist.find(@attrs[:id])
     end

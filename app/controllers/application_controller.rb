@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   private
+
   def complete_registration!
     return unless current_user
 

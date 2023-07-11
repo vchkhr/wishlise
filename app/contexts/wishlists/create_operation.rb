@@ -12,6 +12,7 @@ module Wishlists
     end
 
     private
+
     def create_wishlist
       @current_user.wishlists.create(@attrs)
     end

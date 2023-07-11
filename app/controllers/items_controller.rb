@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: %i[ show ]
+  before_action :authenticate_user!, except: %i[show]
   before_action :complete_registration!
-  before_action :set_item, only: %i[ edit update destroy update_image destroy_image ]
+  before_action :set_item, only: %i[edit update destroy update_image destroy_image]
 
   def show
     result = Items::ShowOperation.new.call(params, current_user)
@@ -9,7 +11,7 @@ class ItemsController < ApplicationController
     if result.success?
       @item = result.value!
     else
-      redirect_to root_path, notice: result.failure[1].errors.messages.map!(&:text).join(". ")
+      redirect_to root_path, notice: result.failure[1].errors.messages.map!(&:text).join('. ')
     end
   end
 
@@ -18,16 +20,15 @@ class ItemsController < ApplicationController
     @item = new_item(params)
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     result = Items::CreateOperation.new.call(item_params, current_user)
 
     if result.success?
-      redirect_to wishlist_path(result.value!.wishlist.id), notice: "Item was successfully added."
+      redirect_to wishlist_path(result.value!.wishlist.id), notice: 'Item was successfully added.'
     else
-      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: "items/form", locals: { item: new_item(item_params), errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: 'items/form', locals: { item: new_item(item_params), errors: result.failure[1].errors.to_h })
     end
   end
 
@@ -35,22 +36,22 @@ class ItemsController < ApplicationController
     result = Items::UpdateOperation.new.call(item_params.merge(id: params[:id]), current_user)
 
     if result.success?
-      redirect_to item_path(@item), notice: "Item was successfully updated."
+      redirect_to item_path(@item), notice: 'Item was successfully updated.'
     else
       @item.assign_attributes(item_params)
 
-      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: "items/form", locals: { item: @item, errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: 'items/form', locals: { item: @item, errors: result.failure[1].errors.to_h })
     end
   end
 
   def destroy
     wishlist = @item.wishlist
-    result = Items::DestroyOperation.new.call({id: params[:id]}, current_user)
+    result = Items::DestroyOperation.new.call({ id: params[:id] }, current_user)
 
     if result.success?
-      redirect_to wishlist_path(wishlist), notice: "Item was successfully deleted."
+      redirect_to wishlist_path(wishlist), notice: 'Item was successfully deleted.'
     else
-      redirect_to wishlist_path(wishlist), notice: result.failure[1].errors.messages.map!(&:text).join(". ")
+      redirect_to wishlist_path(wishlist), notice: result.failure[1].errors.messages.map!(&:text).join('. ')
     end
   end
 
@@ -58,28 +59,29 @@ class ItemsController < ApplicationController
     result = Items::UpdateImageOperation.new.call(image_params.merge(id: params[:id]), current_user)
 
     if result.success?
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/show", locals: { item: @item })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item })
     else
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/show", locals: { item: @item, errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, errors: result.failure[1].errors.to_h })
     end
   end
 
   def destroy_image
-    result = Items::UpdateImageOperation.new.call({id: params[:id], image: nil}, current_user)
+    result = Items::UpdateImageOperation.new.call({ id: params[:id], image: nil }, current_user)
 
     if result.success?
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/show", locals: { item: @item })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item })
     else
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: "items/show", locals: { item: @item, errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, errors: result.failure[1].errors.to_h })
     end
   end
 
   private
+
   def set_item
     @item = Item.find_by(id: params[:id])
   end
 
-  def new_item(params={})
+  def new_item(params = {})
     params = params.permit(:wishlist_id, :title, :url, :price, :description) unless params.empty?
     current_user.items.new(params)
   end

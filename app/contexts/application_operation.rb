@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "dry/monads"
-require "dry/monads/do"
+require 'dry/monads'
+require 'dry/monads/do'
 
 class ApplicationOperation
   def self.inherited(subclass)
@@ -9,7 +9,7 @@ class ApplicationOperation
     subclass.include Dry::Monads::Do.for(:call)
   end
 
-  def call(params)
+  def call(_params)
     throw NotImplementedError.new "Method '#call' not implemented in #{self.class}"
   end
 
@@ -30,7 +30,7 @@ class ApplicationOperation
       @model = entity
       Success(entity)
     else
-      Failure([:not_found, "Not found"])
+      Failure([:not_found, 'Not found'])
     end
   end
 
@@ -44,10 +44,10 @@ class ApplicationOperation
   # Validates specified dry-validation contract
   def Validate(contract_class, params, context = {})
     attrs = if params.class.respond_to?(:dry_initializer)
-      params.class.dry_initializer.attributes(params)
-    else
-      params.to_enum.to_h
-    end
+              params.class.dry_initializer.attributes(params)
+            else
+              params.to_enum.to_h
+            end
 
     result = contract_class.new.call(attrs, context)
 
@@ -68,7 +68,7 @@ class ApplicationOperation
   end
 
   def ValidateUnique(model_class, attr, attributes, except_object = nil)
-    duplicate = model_class.find_by({attr => attributes[attr]})
+    duplicate = model_class.find_by({ attr => attributes[attr] })
     if duplicate.present? && duplicate.id != except_object.id
       Failure("#{model_class.to_s.titleize} #{attr} should be unique")
     else

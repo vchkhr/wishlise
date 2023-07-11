@@ -8,9 +8,7 @@ module Items
       end
 
       rule(:id) do
-        if Item.find_by(id: value).nil?
-          key.failure("Item not found")
-        end
+        key.failure('Item not found') if Item.find_by(id: value).nil?
       end
     end
   end

@@ -5,7 +5,7 @@ module Items
     class Create < ::ApplicationContract
       params do
         optional(:title).maybe(:string, max_size?: 255)
-        optional(:url).maybe(format?: /\A\z|(?i)\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\z/)
+        optional(:url).maybe(format?: %r{\A\z|(?i)\A(http|https)://[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?/.*)?\z})
         optional(:description).maybe(:string, max_size?: 255)
         optional(:price).maybe(:float, gt?: 0)
         required(:wishlist_id).filled(:string)
@@ -13,15 +13,11 @@ module Items
       end
 
       rule(:title) do
-        if value.blank? && values[:url].blank?
-          key.failure("At least Title or URL should be specified")
-        end
+        key.failure('At least Title or URL should be specified') if value.blank? && values[:url].blank?
       end
 
       rule(:wishlist_id) do
-        if Wishlist.find_by(id: value).nil? || Wishlist.find_by(id: value).user_id != values[:user_id]
-          key.failure("Wishlist not found")
-        end
+        key.failure('Wishlist not found') if Wishlist.find_by(id: value).nil? || Wishlist.find_by(id: value).user_id != values[:user_id]
       end
     end
   end

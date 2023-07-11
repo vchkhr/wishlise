@@ -13,6 +13,7 @@ module Profiles
     end
 
     private
+
     def fill_display_name
       @attrs[:display_name] = @attrs[:username] unless @attrs[:display_name]
     end
