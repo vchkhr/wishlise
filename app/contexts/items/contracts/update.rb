@@ -17,8 +17,8 @@ module Items
         key.failure('Item not found') if Item.find_by(id: value).nil? || User.find_by(id: values[:user_id]).nil? || Item.find_by(id: value).wishlist.user_id != values[:user_id]
       end
 
-      rule(:title) do
-        key.failure('At least Title or URL should be specified') if value.blank? && values[:url].blank?
+      rule(:url) do
+        key.failure('At least URL or title should be specified') if value.blank? && values[:title].blank?
       end
     end
   end

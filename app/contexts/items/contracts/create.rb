@@ -12,8 +12,8 @@ module Items
         required(:user_id).filled(:integer)
       end
 
-      rule(:title) do
-        key.failure('At least Title or URL should be specified') if value.blank? && values[:url].blank?
+      rule(:url) do
+        key.failure('At least URL or title should be specified') if value.blank? && values[:title].blank?
       end
 
       rule(:wishlist_id) do
