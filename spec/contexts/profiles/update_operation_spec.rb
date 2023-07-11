@@ -4,7 +4,7 @@ RSpec.describe Profiles::UpdateOperation do
   subject(:operation) { described_class.new }
 
   let(:profile) { create(:profile, username: nil, display_name: nil) }
-  let(:username) { Faker::Internet.username(specifier: 6) }
+  let(:username) { Faker::Internet.username(specifier: 6, separators: %w(_)) }
   let(:display_name) { Faker::Name.name }
 
   describe 'success' do
@@ -80,17 +80,35 @@ RSpec.describe Profiles::UpdateOperation do
     end
 
     context 'when param values are too long' do
-      let!(:result) { operation.call({ username: Faker::Internet.username(specifier: 255), display_name: Faker::Lorem.paragraph_by_chars }, profile.user) }
+      let!(:result) { operation.call({ username: Faker::Internet.username(specifier: 30, separators: %w(_)), display_name: Faker::Lorem.paragraph_by_chars }, profile.user) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy
         expect(result.failure[0]).to eq(:not_valid)
 
         expect(result.failure[1].errors.messages[0].path).to eq([:username])
-        expect(result.failure[1].errors.messages[0].text).to eq('size cannot be greater than 255')
+        expect(result.failure[1].errors.messages[0].text).to eq('size cannot be greater than 30')
 
         expect(result.failure[1].errors.messages[1].path).to eq([:display_name])
         expect(result.failure[1].errors.messages[1].text).to eq('size cannot be greater than 255')
+      end
+
+      it 'does not update the profile' do
+        new_profile = Profile.find(profile.id)
+        expect(new_profile.username).to eq(profile.username)
+        expect(new_profile.display_name).to eq(profile.display_name)
+      end
+    end
+
+    context 'when username has incorrect symbols' do
+      let!(:result) { operation.call({ username: Faker::String.random(length: 10..20), display_name: }, profile.user) }
+
+      it 'returns failure messages' do
+        expect(result.failure?).to be_truthy
+        expect(result.failure[0]).to eq(:not_valid)
+
+        expect(result.failure[1].errors.messages[0].path).to eq([:username])
+        expect(result.failure[1].errors.messages[0].text).to eq('is in invalid format')
       end
 
       it 'does not update the profile' do

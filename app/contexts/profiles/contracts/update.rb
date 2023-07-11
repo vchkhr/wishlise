@@ -5,7 +5,7 @@ module Profiles
     class Update < ::ApplicationContract
       params do
         required(:user_id).filled(:integer)
-        required(:username).filled(:string, min_size?: 6, max_size?: 255) # TODO: Allow only a-z1-9
+        required(:username).filled(:string, min_size?: 6, max_size?: 30, format?: /\A[\w]+\z/)
         optional(:display_name).maybe(:string, min_size?: 2, max_size?: 255)
       end
 
