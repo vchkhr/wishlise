@@ -59,7 +59,7 @@ RSpec.describe Profiles::UpdateOperation do
     end
 
     context 'when param values are too short' do
-      let!(:result) { operation.call({ username: "1", display_name: "1" }, profile.user) }
+      let!(:result) { operation.call({ username: '1', display_name: '1' }, profile.user) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy
@@ -102,8 +102,8 @@ RSpec.describe Profiles::UpdateOperation do
 
     context 'when username has already been used' do
       let(:profile) { create(:profile) }
-      let(:profile_2) { create(:profile) }
-      let!(:result) { operation.call({ username: profile.username, display_name: }, profile_2.user) }
+      let(:profile_new) { create(:profile) }
+      let!(:result) { operation.call({ username: profile.username, display_name: }, profile_new.user) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy
@@ -114,9 +114,9 @@ RSpec.describe Profiles::UpdateOperation do
       end
 
       it 'does not update the profile' do
-        new_profile = Profile.find(profile_2.id)
-        expect(new_profile.username).to eq(profile_2.username)
-        expect(new_profile.display_name).to eq(profile_2.display_name)
+        new_profile = Profile.find(profile_new.id)
+        expect(new_profile.username).to eq(profile_new.username)
+        expect(new_profile.display_name).to eq(profile_new.display_name)
       end
     end
   end
