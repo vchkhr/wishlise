@@ -3,7 +3,7 @@
 module Items
   class UpdateImageOperation < ::ApplicationOperation
     def call(params, current_user)
-      @attrs = yield Validate(Contracts::UpdateImage, params.merge(user_id: current_user.id))
+      @attrs = yield validate(Contracts::UpdateImage, params.merge(user_id: current_user.id))
 
       @item = find_item
       update_item

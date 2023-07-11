@@ -5,7 +5,7 @@ require 'open-uri'
 module Items
   class ParseExternalDataOperation < ::ApplicationOperation
     def call(params)
-      @attrs = yield Validate(Contracts::ParseExternalData, params)
+      @attrs = yield validate(Contracts::ParseExternalData, params)
 
       @item = find_item
       @doc = parse_data
@@ -29,7 +29,7 @@ module Items
     end
 
     def parse_data
-      Nokogiri::HTML.parse(URI.open(@item.url))
+      Nokogiri::HTML.parse(URI.parse(@item.url).open)
     end
 
     def parse_title
@@ -79,7 +79,7 @@ module Items
 
     def parse_image
       image_url = @doc.xpath("//meta[@property='og:image']/@content").first
-      image = image_url.nil? ? '' : URI.open(image_url.text.strip)
+      image = image_url.nil? ? '' : URI.parse(image_url.text.strip).open
       update_image(image, image_url) if image.present?
     end
 

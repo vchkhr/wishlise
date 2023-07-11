@@ -4,7 +4,7 @@ module Items
   class CreateOperation < ::ApplicationOperation
     def call(params, current_user)
       @current_user = current_user
-      @attrs = yield Validate(Contracts::Create, params.merge(user_id: current_user.id))
+      @attrs = yield validate(Contracts::Create, params.merge(user_id: current_user.id))
 
       @item = create_item
       update_wishlist

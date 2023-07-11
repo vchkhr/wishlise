@@ -3,7 +3,7 @@
 module Wishlists
   class DestroyOperation < ::ApplicationOperation
     def call(params, current_user)
-      @attrs = yield Validate(Contracts::Destroy, params.merge(user_id: current_user.id))
+      @attrs = yield validate(Contracts::Destroy, params.merge(user_id: current_user.id))
 
       @wishlist = find_wishlist
       @wishlist = destroy_wishlist

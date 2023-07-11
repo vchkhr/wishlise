@@ -4,7 +4,7 @@ module Wishlists
   class CreateOperation < ::ApplicationOperation
     def call(params, current_user)
       @current_user = current_user
-      @attrs = yield Validate(Contracts::Create, params)
+      @attrs = yield validate(Contracts::Create, params)
 
       @wishlist = create_wishlist
 
