@@ -14,11 +14,11 @@ module Items
       end
 
       rule(:id) do
-        key.failure('Item not found') if Item.find_by(id: value).nil? || User.find_by(id: values[:user_id]).nil? || Item.find_by(id: value).wishlist.user_id != values[:user_id]
+        key.failure('not found') if Item.find_by(id: value).nil? || User.find_by(id: values[:user_id]).nil? || Item.find_by(id: value).wishlist.user_id != values[:user_id]
       end
 
       rule(:url) do
-        key.failure('At least URL or title should be specified') if value.blank? && values[:title].blank?
+        key.failure('at least URL or title should be specified') if value.blank? && values[:title].blank?
       end
     end
   end

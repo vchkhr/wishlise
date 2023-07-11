@@ -13,11 +13,11 @@ module Items
       end
 
       rule(:url) do
-        key.failure('At least URL or title should be specified') if value.blank? && values[:title].blank?
+        key.failure('at least URL or title should be specified') if value.blank? && values[:title].blank?
       end
 
       rule(:wishlist_id) do
-        key.failure('Wishlist not found') if Wishlist.find_by(id: value).nil? || Wishlist.find_by(id: value).user_id != values[:user_id]
+        key.failure('not found') if Wishlist.find_by(id: value).nil? || Wishlist.find_by(id: value).user_id != values[:user_id]
       end
     end
   end
