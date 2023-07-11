@@ -5,6 +5,8 @@ Online wishlist app.
 - Ruby 3.2.2.
 - Ruby on Rails 7.0.5 ([http://localhost:3000/](http://localhost:3000/)).
 
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
+
 ## Start the app
 
 1. Copy the `.env.template` file and name it `.env`. Fill in the file.
