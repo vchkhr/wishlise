@@ -4,7 +4,7 @@ RSpec.describe Profiles::UpdateOperation do
   subject(:operation) { described_class.new }
 
   let(:profile) { create(:profile, username: nil, display_name: nil) }
-  let(:username) { Faker::Internet.username(specifier: 6, separators: %w(_)) }
+  let(:username) { Faker::Internet.username(specifier: 6, separators: %w[_]) }
   let(:display_name) { Faker::Name.name }
 
   describe 'success' do
@@ -13,7 +13,8 @@ RSpec.describe Profiles::UpdateOperation do
 
       it 'returns updated profile' do
         expect(result.success?).to be_truthy
-        expect(result.value!).to eq(profile)
+        expect(result.value!.username).to eq(username)
+        expect(result.value!.display_name).to eq(display_name)
       end
 
       it 'updates the profile' do
@@ -28,7 +29,8 @@ RSpec.describe Profiles::UpdateOperation do
 
       it 'returns updated profile' do
         expect(result.success?).to be_truthy
-        expect(result.value!).to eq(profile)
+        expect(result.value!.username).to eq(username)
+        expect(result.value!.display_name).to eq(username)
       end
 
       it 'updates the profile and sets username to display name' do
@@ -80,7 +82,7 @@ RSpec.describe Profiles::UpdateOperation do
     end
 
     context 'when param values are too long' do
-      let!(:result) { operation.call({ username: Faker::Internet.username(specifier: 30, separators: %w(_)), display_name: Faker::Lorem.paragraph_by_chars }, profile.user) }
+      let!(:result) { operation.call({ username: Faker::Internet.username(specifier: 30, separators: %w[_]), display_name: Faker::Lorem.paragraph_by_chars }, profile.user) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy

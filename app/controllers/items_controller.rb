@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
     if result.success?
       @item = result.value!
     else
-      redirect_to root_path, notice: result.failure[1].errors.messages.map!(&:text).join('. ')
+      redirect_to root_path, notice: ErrorsHelper::DryToText.new.call(result)
     end
   end
 
@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
     if result.success?
       redirect_to wishlist_path(result.value!.wishlist.id), notice: 'Item was successfully added.'
     else
-      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: 'items/form', locals: { item: new_item(item_params), errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: 'items/form', locals: { item: new_item(item_params), errors: ErrorsHelper::DryToText.new.call(result) })
     end
   end
 
@@ -40,7 +40,7 @@ class ItemsController < ApplicationController
     else
       @item.assign_attributes(item_params)
 
-      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: 'items/form', locals: { item: @item, errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: 'items/form', locals: { item: @item, errors: ErrorsHelper::DryToText.new.call(result) })
     end
   end
 
@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
     if result.success?
       redirect_to wishlist_path(wishlist), notice: 'Item was successfully deleted.'
     else
-      redirect_to wishlist_path(wishlist), notice: result.failure[1].errors.messages.map!(&:text).join('. ')
+      redirect_to wishlist_path(wishlist), notice: ErrorsHelper::DryToText.new.call(result)
     end
   end
 
@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
     if result.success?
       render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item })
     else
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, errors: ErrorsHelper::DryToText.new.call(result) })
     end
   end
 
@@ -71,7 +71,7 @@ class ItemsController < ApplicationController
     if result.success?
       render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item })
     else
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, errors: ErrorsHelper::DryToText.new.call(result) })
     end
   end
 

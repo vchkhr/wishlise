@@ -12,7 +12,7 @@ class WishlistsController < ApplicationController
       @wishlists = result.value!
       redirect_to new_wishlist_path if @wishlists.empty?
     else
-      redirect_to root_path, notice: result.failure[1].errors.messages.map!(&:text).join('. ')
+      redirect_to root_path, notice: ErrorsHelper::DryToText.new.call(result)
     end
   end
 
@@ -22,7 +22,7 @@ class WishlistsController < ApplicationController
     if result.success?
       @wishlist = result.value!
     else
-      redirect_to root_path, notice: result.failure[1].errors.messages.map!(&:text).join('. ')
+      redirect_to root_path, notice: ErrorsHelper::DryToText.new.call(result)
     end
   end
 
@@ -38,7 +38,7 @@ class WishlistsController < ApplicationController
     if result.success?
       redirect_to wishlist_path(result.value!), notice: 'Wishlist was successfully created.'
     else
-      render turbo_stream: turbo_stream.replace(:wishlist_form_frame, partial: 'wishlists/form', locals: { wishlist: new_wishlist(wishlist_params), errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace(:wishlist_form_frame, partial: 'wishlists/form', locals: { wishlist: new_wishlist(wishlist_params), errors: ErrorsHelper::DryToText.new.call(result) })
     end
   end
 
@@ -50,7 +50,7 @@ class WishlistsController < ApplicationController
     else
       @wishlist.assign_attributes(wishlist_params)
 
-      render turbo_stream: turbo_stream.replace(:wishlist_form_frame, partial: 'wishlists/form', locals: { wishlist: @wishlist, errors: result.failure[1].errors.to_h })
+      render turbo_stream: turbo_stream.replace(:wishlist_form_frame, partial: 'wishlists/form', locals: { wishlist: @wishlist, errors: ErrorsHelper::DryToText.new.call(result) })
     end
   end
 
@@ -60,7 +60,7 @@ class WishlistsController < ApplicationController
     if result.success?
       redirect_to wishlists_path, notice: 'Wishlist was successfully deleted.'
     else
-      redirect_to wishlists_path, notice: result.failure[1].errors.messages.map!(&:text).join('. ')
+      redirect_to wishlists_path, notice: ErrorsHelper::DryToText.new.call(result)
     end
   end
 
