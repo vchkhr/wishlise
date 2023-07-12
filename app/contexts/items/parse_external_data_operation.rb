@@ -36,14 +36,14 @@ module Items
       title = @doc.xpath('//*[@data-name]/@data-name').first ||
               @doc.xpath("//*[@itemprop='name']//text()").first ||
               @doc.xpath("//meta[@property='og:title']/@content").first
-      title.nil? ? "#{URI.parse(@item.url).host}#{URI.parse(@item.url).path}" : title.text.strip
+      title.nil? ? "#{URI.parse(@item.url).host}#{URI.parse(@item.url).path}" : title.text.strip.first(255).strip
     end
 
     def parse_description
       description = @doc.xpath("//*[@itemprop='description']//text()").first ||
                     @doc.xpath('//*[@data-description]/@data-description').first ||
                     @doc.xpath("//meta[@property='og:description']/@content").first
-      description.nil? ? '' : description.text.strip
+      description.nil? ? '' : description.text.strip.first(255).strip
     end
 
     def parse_amount(string)
