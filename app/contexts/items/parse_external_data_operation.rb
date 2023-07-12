@@ -80,7 +80,7 @@ module Items
     def parse_image
       image_url = @doc.xpath("//meta[@property='og:image']/@content").first
       image = image_url.nil? ? '' : URI.parse(image_url.text.strip).open
-      update_image(image, image_url) if image.present?
+      update_image(image, image_url) if image.present? && image.content_type.in?(%w[image/jpeg image/png]) && image.size <= 5.megabytes
     end
 
     def update_item

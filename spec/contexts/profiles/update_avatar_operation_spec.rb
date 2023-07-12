@@ -47,7 +47,7 @@ RSpec.describe Profiles::UpdateAvatarOperation do
 
   describe 'failure' do
     context 'when param values are incorrect' do
-      let!(:result) { operation.call({ avatar: fixture_file_upload(Rails.root.join('spec', 'support', 'assets', 'test-pdf.pdf'), 'file/pdf') }, profile.user) }
+      let!(:result) { operation.call({ avatar: fixture_file_upload(Rails.root.join('spec', 'support', 'assets', 'test-pdf.pdf'), 'application/pdf') }, profile.user) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy
