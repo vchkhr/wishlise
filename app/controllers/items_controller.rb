@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
     if result.success?
       @item = result.value!
     else
-      redirect_to root_path, notice: ErrorsHelper::DryToText.new.call(result)
+      redirect_to root_path, notice: ErrorsHelper::AlertError.new.call(result)
     end
   end
 
@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
     if result.success?
       redirect_to wishlist_path(result.value!.wishlist.id), notice: 'Item was successfully added.'
     else
-      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: 'items/form', locals: { item: new_item(item_params), errors: ErrorsHelper::DryToText.new.call(result) })
+      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: 'items/form', locals: { item: new_item(item_params), errors: ErrorsHelper::SimpleFormError.new.call(result) })
     end
   end
 
@@ -40,7 +40,7 @@ class ItemsController < ApplicationController
     else
       @item.assign_attributes(item_params)
 
-      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: 'items/form', locals: { item: @item, errors: ErrorsHelper::DryToText.new.call(result) })
+      render turbo_stream: turbo_stream.replace(:item_form_frame, partial: 'items/form', locals: { item: @item, errors: ErrorsHelper::SimpleFormError.new.call(result) })
     end
   end
 
@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
     if result.success?
       redirect_to wishlist_path(wishlist), notice: 'Item was successfully deleted.'
     else
-      redirect_to wishlist_path(wishlist), notice: ErrorsHelper::DryToText.new.call(result)
+      redirect_to wishlist_path(wishlist), notice: ErrorsHelper::AlertError.new.call(result)
     end
   end
 
@@ -59,9 +59,9 @@ class ItemsController < ApplicationController
     result = Items::UpdateImageOperation.new.call(image_params.merge(id: params[:id]), current_user)
 
     if result.success?
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, result: 'Image was updated.' })
     else
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, errors: ErrorsHelper::DryToText.new.call(result) })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, result: ErrorsHelper::AlertError.new.call(result) })
     end
   end
 
@@ -69,9 +69,9 @@ class ItemsController < ApplicationController
     result = Items::UpdateImageOperation.new.call({ id: params[:id], image: nil }, current_user)
 
     if result.success?
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, result: 'Image was removed.' })
     else
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, errors: ErrorsHelper::DryToText.new.call(result) })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, result: ErrorsHelper::AlertError.new.call(result) })
     end
   end
 

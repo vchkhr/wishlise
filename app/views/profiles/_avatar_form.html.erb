@@ -1,14 +1,8 @@
 <%= turbo_frame_tag :profile_avatar_form_frame do %>
   <%= form_for profile, url: profile_avatar_path, method: :PATCH, data: { controller: "image-form", "image-form-target": "imageForm" } do |f| %>
     <div class="field mt-3">
-      <% unless result.nil? %>
-        <% if result == true %>
-          <div class="alert alert-success">Profile image was updated successfully.</div>
-        <% elsif result == false %>
-          <div class="alert alert-danger">Profile image was not updated.</div>
-        <% else %>
-          <div class="alert alert-info"><%= result %></div>
-        <% end %>
+      <% if result %>
+        <div class="alert alert-info"><%= result %></div>
       <% end %>
 
       <div class="d-flex">

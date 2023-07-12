@@ -1,5 +1,9 @@
 <%= form_for item, url: item_image_path(item), method: :PATCH, data: { controller: "image-form", "image-form-target": "imageForm" } do |f| %>
   <div class="field mt-3">
+    <% if result %>
+      <div class="alert alert-info"><%= result %></div>
+    <% end %>
+
     <div class="d-flex">
       <div class="ms-3 align-self-center">
         <%= f.label :image, "Item image", class: "form-label" %>

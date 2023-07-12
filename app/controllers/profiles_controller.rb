@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
   before_action :set_current_profile, only: %i[edit complete_registration update]
 
   def show
-    redirect_to root_url, notice: 'Profile not found.' unless @profile
+    redirect_to root_url, notice: 'Profile not found.' if @profile.nil?
   end
 
   def edit; end
@@ -31,7 +31,7 @@ class ProfilesController < ApplicationController
         redirect_to profile_by_username_path(current_user.profile.username), notice: 'Profile was successfully updated.'
       end
     else
-      render turbo_stream: turbo_stream.replace(:profile_form_frame, partial: 'profiles/form', locals: { profile: current_user.profile, values: profile_params, errors: ErrorsHelper::DryToText.new.call(result) })
+      render turbo_stream: turbo_stream.replace(:profile_form_frame, partial: 'profiles/form', locals: { profile: current_user.profile, values: profile_params, errors: ErrorsHelper::SimpleFormError.new.call(result) })
     end
   end
 
@@ -41,7 +41,7 @@ class ProfilesController < ApplicationController
     if result.success?
       render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: 'profiles/avatar_form', locals: { profile: current_user.profile, result: 'Profile image was updated.' })
     else
-      render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: 'profiles/avatar_form', locals: { profile: current_user.profile, result: ErrorsHelper::DryToText.new.call(result) })
+      render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: 'profiles/avatar_form', locals: { profile: current_user.profile, result: ErrorsHelper::AlertError.new.call(result) })
     end
   end
 
@@ -51,7 +51,7 @@ class ProfilesController < ApplicationController
     if result.success?
       render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: 'profiles/avatar_form', locals: { profile: current_user.profile, result: 'Profile image was removed.' })
     else
-      render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: 'profiles/avatar_form', locals: { profile: current_user.profile, result: ErrorsHelper::DryToText.new.call(result) })
+      render turbo_stream: turbo_stream.replace(:profile_avatar_form_frame, partial: 'profiles/avatar_form', locals: { profile: current_user.profile, result: ErrorsHelper::AlertError.new.call(result) })
     end
   end
 

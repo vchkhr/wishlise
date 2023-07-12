@@ -42,7 +42,7 @@
     <div class="card-footer">
       <% if current_user == item.wishlist.user %>
         <div class="d-flex justify-content-center align-items-center gap-3">
-          <%= render "items/image_form", item: item, result: nil %>
+          <%= render "items/image_form", item: item, result: result %>
         </div>
         <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
           <%= link_to "Back to the wishlist", wishlist_path(item.wishlist), data: { turbo_frame: "_top" } %>

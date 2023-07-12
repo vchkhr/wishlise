@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 module ErrorsHelper
-  class DryToText
+  class SimpleFormError
+    def call(result)
+      result.failure[1].errors.to_h
+    end
+  end
+
+  class AlertError
     def call(result)
       error_text = result.failure[1].errors.to_h
                          .map { |path, text| "#{path.to_s.titleize} #{text.join(', ')}" }
