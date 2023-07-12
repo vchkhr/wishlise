@@ -36,14 +36,20 @@ module Items
       title = @doc.xpath('//*[@data-name]/@data-name').first ||
               @doc.xpath("//*[@itemprop='name']//text()").first ||
               @doc.xpath("//meta[@property='og:title']/@content").first
-      title.nil? ? "#{URI.parse(@item.url).host}#{URI.parse(@item.url).path}" : title.text.strip.truncate(255, separator: ' ')
+
+      if title
+        title.text.strip.truncate(255, separator: ' ')
+      else
+        "#{URI.parse(@item.url).host}#{URI.parse(@item.url).path}"
+      end
     end
 
     def parse_description
       description = @doc.xpath("//*[@itemprop='description']//text()").first ||
                     @doc.xpath('//*[@data-description]/@data-description').first ||
                     @doc.xpath("//meta[@property='og:description']/@content").first
-      description.nil? ? '' : description.text.strip.truncate(255, separator: ' ')
+
+      description ? description.text.strip.truncate(255, separator: ' ') : ''
     end
 
     def parse_amount(string)
@@ -67,7 +73,7 @@ module Items
               @doc.xpath("//meta[@property='product:price']/@content").first ||
               @doc.xpath("//meta[@property='price']/@content").first ||
               @doc.xpath("//*[contains(@class, 'product-price')]//text()").first
-      price.nil? ? '' : parse_amount(price.text.strip)
+      price ? parse_amount(price.text.strip) : ''
     end
 
     def update_image(image, image_url)
