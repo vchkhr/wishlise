@@ -29,17 +29,17 @@
       </p>
     <% end %>
 
-    <%= turbo_stream_from :items %>
+    <%= turbo_stream_from @wishlist, :items %>
     <% if @wishlist.items.empty? %>
       <h6 class="text-center mt-5">This wishlist has no items yet.</h6>
-    <% else %>
-      <div id="items" class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-        <% @wishlist.items.order(updated_at: :desc).each do |item| %>
-          <div class="col">
-            <%= render "items/item", item: item, show_footer: false %>
-          </div>
-        <% end %>
-      </div>
     <% end %>
+
+    <div id="items" class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+      <% @wishlist.items.order(updated_at: :desc).each do |item| %>
+        <div class="col">
+          <%= render "items/item", item: item, show_footer: false %>
+        </div>
+      <% end %>
+    </div>
   </div>
 <% end %>

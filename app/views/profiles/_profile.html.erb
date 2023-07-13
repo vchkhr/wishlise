@@ -11,18 +11,19 @@
       </div>
     <% end %>
 
+    <%= turbo_stream_from profile.user, :wishlists %>
     <% if wishlists.empty? %>
       <% if current_user == profile.user %>
         <h6 class="text-center mt-5">You don't have public wishlists. <%= link_to "See all wishlists", wishlists_path, data: { turbo_frame: "_top" } %></h6>
       <% else %>
         <h6 class="text-center mt-5">No wishlists yet.</h6>
       <% end %>
-    <% else %>
-      <div id="wishlists" class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-        <% wishlists.each do |wishlist| %>
-          <%= render "wishlists/wishlist", wishlist: wishlist %>
-        <% end %>
-      </div>
     <% end %>
+
+    <div id="wishlists" class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+      <% wishlists.each do |wishlist| %>
+        <%= render "wishlists/wishlist", wishlist: wishlist %>
+      <% end %>
+    </div>
   </div>
 <% end %>

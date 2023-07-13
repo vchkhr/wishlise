@@ -1,5 +1,5 @@
-<%= turbo_stream_from :items %>
-<%= turbo_frame_tag "item_#{item.id}_show", data: { controller: "turbo-form-redirect" } do %> do %>
+<%= turbo_stream_from item.wishlist, :items %>
+<%= turbo_frame_tag "item_#{item.id}_show", data: { controller: "turbo-form-redirect" } do %>
   <div class="py-5 px-3">
     <div class="row justify-content-center row-cols-1 row-cols-lg-2 g-4 mt-3">
       <%= render "item", item: item %>

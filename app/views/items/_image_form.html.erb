@@ -9,11 +9,9 @@
         <%= f.label :image, "Item image", class: "form-label" %>
         <%= f.file_field :image, class: "form-control", data: { action: "change->image-form#imageSubmit" } %>
 
-        <% if item.image.attached? %>
-          <p class="text-center">
-            <%= link_to "Remove image", item_image_path(item), data: { turbo_method: :delete }, class: "text-danger" %>
-          </p>
-        <% end %>
+        <p class="text-center">
+          <%= link_to "Remove image", item_image_path(item), data: { turbo_method: :delete }, class: "text-danger" %>
+        </p>
       </div>
     </div>
   </div>
