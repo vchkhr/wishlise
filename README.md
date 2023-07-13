@@ -2,14 +2,14 @@
 
 Create wishlists and add items, sharing links to lists and profiles so important people know what to give you.
 
-The killer feature of this application is the parsing of data from external resources. You can add links to the items you want, and the application will parse the product's name, picture, description, and even price.
+The killer feature of this application is the parsing of data from external resources. You can add links to the items you want, and the application will parse the product's name, picture, description, and price.
 
 ## Features
 
 - Create and manage wishlists.
 - Add items to wishlists.
 - Share wishlists with others.
-- Parse data from external sites, getting the product's name, picture, description, and even price.
+- Parse data from external sites, getting the product's name, picture, description, and price.
 - Share the link to your profile with public wishlists.
 
 ## Technologies
@@ -25,7 +25,7 @@ The killer feature of this application is the parsing of data from external reso
 
 ## Start the app
 
-1. Copy the `.env.template` file and name it `.env`. Fill in the file.
+1. Copy the `.env.template` file and name it `.env`. Fill in the file. If you run the app locally, use `HOST="localhost:3000"`.
 
 1. Run:
 
@@ -33,6 +33,8 @@ The killer feature of this application is the parsing of data from external reso
 docker compose build
 docker compose up
 ```
+
+1. Open the app. If you run the app locally, open [http://localhost:3000/](http://localhost:3000/).
 
 ## Stop the app
 

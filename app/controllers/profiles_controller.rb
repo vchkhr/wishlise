@@ -7,6 +7,7 @@ class ProfilesController < ApplicationController
 
   def show
     redirect_to root_url, notice: 'Profile not found.' if @profile.nil?
+    @wishlists = @profile.user.wishlists.listed # TODO: Move this to the operation
   end
 
   def edit; end

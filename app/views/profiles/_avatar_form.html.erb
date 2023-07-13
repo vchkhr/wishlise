@@ -6,7 +6,7 @@
       <% end %>
 
       <div class="d-flex">
-        <%= render partial: "profiles/avatar", locals: { profile: profile, html_class: "avatar avatar-100" } %>
+        <%= render "profiles/avatar", profile: profile, html_class: "avatar avatar-100" %>
 
         <div class="ms-3 align-self-center">
           <%= f.label :avatar, "Profile image", class: "form-label" %>

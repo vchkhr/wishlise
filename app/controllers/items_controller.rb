@@ -59,9 +59,9 @@ class ItemsController < ApplicationController
     result = Items::UpdateImageOperation.new.call(image_params.merge(id: params[:id]), current_user)
 
     if result.success?
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, result: 'Image was updated.' })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}_show", partial: 'items/show', locals: { item: @item, result: 'Image was updated.' })
     else
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, result: ErrorsHelper::AlertError.new.call(result) })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}_show", partial: 'items/show', locals: { item: @item, result: ErrorsHelper::AlertError.new.call(result) })
     end
   end
 
@@ -69,9 +69,9 @@ class ItemsController < ApplicationController
     result = Items::UpdateImageOperation.new.call({ id: params[:id], image: nil }, current_user)
 
     if result.success?
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, result: 'Image was removed.' })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}_show", partial: 'items/show', locals: { item: @item, result: 'Image was removed.' })
     else
-      render turbo_stream: turbo_stream.replace("item_#{@item.id}", partial: 'items/show', locals: { item: @item, result: ErrorsHelper::AlertError.new.call(result) })
+      render turbo_stream: turbo_stream.replace("item_#{@item.id}_show", partial: 'items/show', locals: { item: @item, result: ErrorsHelper::AlertError.new.call(result) })
     end
   end
 

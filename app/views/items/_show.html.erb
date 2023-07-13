@@ -1,9 +1,34 @@
-<%= turbo_frame_tag item, data: { controller: "turbo-form-redirect" } do %>
-  <div class="py-3 px-3">
-    <div id="items" class="row justify-content-center row-cols-1 row-cols-lg-2 g-4 mt-3">
-      <div class="col">
-        <%= render partial: "item", locals: { item: item, show_footer: true, result: result }%>
-      </div>
+<%= turbo_stream_from :items %>
+<%= turbo_frame_tag "item_#{item.id}_show", data: { controller: "turbo-form-redirect" } do %> do %>
+  <div class="py-5 px-3">
+    <div class="row justify-content-center row-cols-1 row-cols-lg-2 g-4 mt-3">
+      <%= render "item", item: item %>
+    </div>
+
+    <div class="card-footer">
+      <% if current_user == item.wishlist.user %>
+        <div class="d-flex justify-content-center align-items-center gap-3">
+          <%= render "items/image_form", item: item, result: result %>
+        </div>
+        <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
+          <%= link_to "Back to the wishlist", wishlist_path(item.wishlist), data: { turbo_frame: "_top" } %>
+          <%= link_to "Edit this item", edit_item_path(item), data: { turbo_frame: "_top" } %>
+        </div>
+        <div class="d-flex justify-content-center align-items-center gap-3">
+          <%= button_to "Delete this item", item, method: :delete, class: "btn btn-link text-danger" %>
+        </div>
+      <% else %>
+        <p class="text-center py-3">
+          Item by
+
+          <%= link_to profile_by_username_path(item.wishlist.user.profile.username), data: { turbo_frame: "_top" }, class: "text-decoration-none" do |link| %>
+            <%= render "profiles/avatar", profile: item.wishlist.user.profile, html_class: "avatar" %>
+            <%= item.wishlist.user.profile.display_name %>
+          <% end %>
+
+          in the <%= link_to item.wishlist.title, wishlist_path(item.wishlist), class: "text-decoration-none", data: { turbo_frame: "_top" } %> wishlist.
+        </p>
+      <% end %>
     </div>
   </div>
 <% end %>
