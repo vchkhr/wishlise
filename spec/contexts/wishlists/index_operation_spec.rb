@@ -3,72 +3,73 @@
 RSpec.describe Wishlists::IndexOperation do
   subject(:operation) { described_class.new }
 
-  let(:author) { create(:user) }
   let(:user) { create(:user) }
-  let(:guest) { nil }
+  let(:profile) { create(:profile, user: user) }
+  let(:guest) { create(:user) }
+  let(:anonymous) { nil }
 
-  let(:wishlists_listed) { create_list(:wishlist, 3, publicity: 'listed', user: author) }
-  let(:wishlists_by_link) { create_list(:wishlist, 3, publicity: 'by_link', user: author) }
-  let(:wishlists_hidden) { create_list(:wishlist, 3, publicity: 'hidden', user: author) }
+  let!(:wishlists_listed) { create_list(:wishlist, 3, publicity: 'listed', user: user) }
+  let!(:wishlists_by_link) { create_list(:wishlist, 3, publicity: 'by_link', user: user) }
+  let!(:wishlists_hidden) { create_list(:wishlist, 3, publicity: 'hidden', user: user) }
 
   describe 'success' do
-    context 'when author requests listed wishlists' do
-      let!(:result) { operation.call({}, author) }
+    context 'when current guest requests their wishlists' do
+      let!(:result) { operation.call({}, user) }
 
       it 'returns wishlists' do
         expect(result.success?).to be_truthy
-        expect(result.value!).to match_array(wishlists_listed)
+        expect(result.value!).to eq((wishlists_listed + wishlists_by_link + wishlists_hidden).sort_by(&:updated_at).reverse)
+      end
+    end
+
+    context 'when guest requests their wishlists' do
+      let!(:result) { operation.call({}, guest) }
+
+      it 'returns listed wishlists' do
+        expect(result.success?).to be_truthy
+        expect(result.value!).to be_empty
+      end
+    end
+
+    context 'when user requests users wishlists' do
+      let!(:result) { operation.call({ username: profile.username }, user) }
+
+      it 'returns listed wishlists' do
+        expect(result.success?).to be_truthy
+        expect(result.value!).to eq(wishlists_listed.sort_by(&:updated_at).reverse)
+      end
+    end
+
+    context 'when guest requests users wishlists' do
+      let!(:result) { operation.call({ username: profile.username }, guest) }
+
+      it 'returns listed wishlists' do
+        expect(result.success?).to be_truthy
+        expect(result.value!).to eq(wishlists_listed.sort_by(&:updated_at).reverse)
+      end
+    end
+
+    context 'when anonymous requests users wishlists' do
+      let!(:result) { operation.call({ username: profile.username }, anonymous) }
+
+      it 'returns listed wishlists' do
+        expect(result.success?).to be_truthy
+        expect(result.value!).to eq(wishlists_listed.sort_by(&:updated_at).reverse)
       end
     end
   end
 
   describe 'failure' do
-    # context 'when param values are empty' do
-    #   let!(:result) { operation.call({ id: '' }, author) }
+    context 'when param values are invalid' do
+      let!(:result) { operation.call({ username: 'fake-username' }, user) }
 
-    #   it 'returns failure messages' do
-    #     expect(result.failure?).to be_truthy
-    #     expect(result.failure[0]).to eq(:not_valid)
+      it 'returns failure messages' do
+        expect(result.failure?).to be_truthy
+        expect(result.failure[0]).to eq(:not_valid)
 
-    #     expect(result.failure[1].errors.messages[0].path).to eq([:id])
-    #     expect(result.failure[1].errors.messages[0].text).to eq('must be filled')
-    #   end
-    # end
-
-    # context 'when param values are invalid' do
-    #   let!(:result) { operation.call({ id: 'fake-id' }, author) }
-
-    #   it 'returns failure messages' do
-    #     expect(result.failure?).to be_truthy
-    #     expect(result.failure[0]).to eq(:not_valid)
-
-    #     expect(result.failure[1].errors.messages[0].path).to eq([:id])
-    #     expect(result.failure[1].errors.messages[0].text).to eq('not found')
-    #   end
-    # end
-
-    # context 'when user requests hidden wishlists' do
-    #   let!(:result) { operation.call({ id: wishlists_hidden.id }, user) }
-
-    #   it 'returns failure messages' do
-    #     expect(result.failure?).to be_truthy
-    #     expect(result.failure[0]).to eq(:not_valid)
-
-    #     expect(result.failure[1].errors.messages[0].path).to eq([:id])
-    #     expect(result.failure[1].errors.messages[0].text).to eq('not found')
-    #   end
-    # end
-
-    # context 'when guest requests hidden wishlists' do
-    #   let!(:result) { operation.call({ id: wishlists_hidden.id }, guest) }
-
-    #   it 'returns failure messages' do
-    #     expect(result.failure?).to be_truthy
-    #     expect(result.failure[0]).to eq(:not_valid)
-
-    #     expect(result.failure[1].errors.messages[0].path).to eq([:id])
-    #     expect(result.failure[1].errors.messages[0].text).to eq('not found')
-    #   end
-    # end
+        expect(result.failure[1].errors.messages[0].path).to eq([:username])
+        expect(result.failure[1].errors.messages[0].text).to eq('not found')
+      end
+    end
   end
 end
