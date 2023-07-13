@@ -5,25 +5,11 @@ module Items
     def call(params, current_user)
       @attrs = yield validate(Contracts::Destroy, params.merge(user_id: current_user.id))
 
-      @item = find_item
-      update_wishlist
-      @item = destroy_item
+      item = Item.find(@attrs[:id])
+      item.wishlist.update(updated_at: Time.zone.now)
+      item.destroy
 
-      Success(@item)
-    end
-
-    private
-
-    def find_item
-      Item.find(@attrs[:id])
-    end
-
-    def update_wishlist
-      @item.wishlist.update(updated_at: Time.zone.now)
-    end
-
-    def destroy_item
-      @item.destroy
+      Success(item)
     end
   end
 end

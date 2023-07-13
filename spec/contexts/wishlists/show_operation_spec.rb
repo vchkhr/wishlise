@@ -13,7 +13,7 @@ RSpec.describe Wishlists::ShowOperation do
 
   describe 'success' do
     context 'when author requests listed wishlist' do
-      let!(:result) { operation.call({id: wishlist_listed.id}, author) }
+      let!(:result) { operation.call({ id: wishlist_listed.id }, author) }
 
       it 'returns wishlist' do
         expect(result.success?).to be_truthy
@@ -22,7 +22,7 @@ RSpec.describe Wishlists::ShowOperation do
     end
 
     context 'when author requests by_link wishlist' do
-      let!(:result) { operation.call({id: wishlist_by_link.id}, author) }
+      let!(:result) { operation.call({ id: wishlist_by_link.id }, author) }
 
       it 'returns wishlist' do
         expect(result.success?).to be_truthy
@@ -31,7 +31,7 @@ RSpec.describe Wishlists::ShowOperation do
     end
 
     context 'when author requests hidden wishlist' do
-      let!(:result) { operation.call({id: wishlist_hidden.id}, author) }
+      let!(:result) { operation.call({ id: wishlist_hidden.id }, author) }
 
       it 'returns wishlist' do
         expect(result.success?).to be_truthy
@@ -40,7 +40,7 @@ RSpec.describe Wishlists::ShowOperation do
     end
 
     context 'when user requests listed wishlist' do
-      let!(:result) { operation.call({id: wishlist_listed.id}, user) }
+      let!(:result) { operation.call({ id: wishlist_listed.id }, user) }
 
       it 'returns wishlist' do
         expect(result.success?).to be_truthy
@@ -49,7 +49,7 @@ RSpec.describe Wishlists::ShowOperation do
     end
 
     context 'when user requests by_link wishlist' do
-      let!(:result) { operation.call({id: wishlist_by_link.id}, user) }
+      let!(:result) { operation.call({ id: wishlist_by_link.id }, user) }
 
       it 'returns wishlist' do
         expect(result.success?).to be_truthy
@@ -58,7 +58,7 @@ RSpec.describe Wishlists::ShowOperation do
     end
 
     context 'when guest requests listed wishlist' do
-      let!(:result) { operation.call({id: wishlist_listed.id}, guest) }
+      let!(:result) { operation.call({ id: wishlist_listed.id }, guest) }
 
       it 'returns wishlist' do
         expect(result.success?).to be_truthy
@@ -67,7 +67,7 @@ RSpec.describe Wishlists::ShowOperation do
     end
 
     context 'when guest requests by_link wishlist' do
-      let!(:result) { operation.call({id: wishlist_by_link.id}, guest) }
+      let!(:result) { operation.call({ id: wishlist_by_link.id }, guest) }
 
       it 'returns wishlist' do
         expect(result.success?).to be_truthy
@@ -78,7 +78,7 @@ RSpec.describe Wishlists::ShowOperation do
 
   describe 'failure' do
     context 'when param values are empty' do
-      let!(:result) { operation.call({id: ""}, author) }
+      let!(:result) { operation.call({ id: '' }, author) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy
@@ -90,7 +90,7 @@ RSpec.describe Wishlists::ShowOperation do
     end
 
     context 'when param values are invalid' do
-      let!(:result) { operation.call({id: "fake-id"}, author) }
+      let!(:result) { operation.call({ id: 'fake-id' }, author) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy
@@ -102,7 +102,7 @@ RSpec.describe Wishlists::ShowOperation do
     end
 
     context 'when user requests hidden wishlist' do
-      let!(:result) { operation.call({id: wishlist_hidden.id}, user) }
+      let!(:result) { operation.call({ id: wishlist_hidden.id }, user) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy
@@ -114,7 +114,7 @@ RSpec.describe Wishlists::ShowOperation do
     end
 
     context 'when guest requests hidden wishlist' do
-      let!(:result) { operation.call({id: wishlist_hidden.id}, guest) }
+      let!(:result) { operation.call({ id: wishlist_hidden.id }, guest) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy

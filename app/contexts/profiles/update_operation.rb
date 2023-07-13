@@ -3,28 +3,13 @@
 module Profiles
   class UpdateOperation < ::ApplicationOperation
     def call(params, current_user)
-      @current_user = current_user
-      @attrs = yield validate(Contracts::Update, params.merge(user_id: @current_user.id))
+      @attrs = yield validate(Contracts::Update, params.merge(user_id: current_user.id))
 
-      fill_display_name
-      @profile = find_profile
-      update_profile
-
-      Success(@profile)
-    end
-
-    private
-
-    def fill_display_name
       @attrs[:display_name] = @attrs[:username] unless @attrs[:display_name]
-    end
+      profile = current_user.profile
+      profile.update(@attrs)
 
-    def find_profile
-      @current_user.profile
-    end
-
-    def update_profile
-      @profile.update(@attrs)
+      Success(profile)
     end
   end
 end

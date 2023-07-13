@@ -3,23 +3,12 @@
 module Profiles
   class UpdateAvatarOperation < ::ApplicationOperation
     def call(params, current_user)
-      @current_user = current_user
-      @attrs = yield validate(Contracts::UpdateAvatar, params.merge(user_id: @current_user.id))
+      @attrs = yield validate(Contracts::UpdateAvatar, params)
 
-      @profile = find_profile
-      update_profile
+      profile = current_user.profile
+      profile.avatar.attach(@attrs[:avatar])
 
-      Success(@profile)
-    end
-
-    private
-
-    def find_profile
-      @current_user.profile
-    end
-
-    def update_profile
-      @profile.avatar.attach(@attrs[:avatar])
+      Success(profile)
     end
   end
 end

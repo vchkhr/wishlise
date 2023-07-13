@@ -5,15 +5,9 @@ module Items
     def call(params, current_user)
       @attrs = yield validate(Contracts::Show, params.merge(user_id: current_user&.id))
 
-      @item = find_item
+      item = Item.find(@attrs[:id])
 
-      Success(@item)
-    end
-
-    private
-
-    def find_item
-      Item.find(@attrs[:id])
+      Success(item)
     end
   end
 end

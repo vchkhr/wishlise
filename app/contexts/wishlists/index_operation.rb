@@ -2,10 +2,16 @@
 
 module Wishlists
   class IndexOperation < ::ApplicationOperation
-    def call(_params, current_user)
-      @wishlists = current_user.wishlists.order(updated_at: :desc)
+    def call(params, current_user)
+      @attrs = yield validate(Contracts::Index, params)
 
-      Success(@wishlists)
+      wishlists = if @attrs[:username]
+                    Profile.find_by(username: @attrs[:username]).user.wishlists.listed
+                  else
+                    current_user.wishlists.order(updated_at: :desc)
+                  end
+
+      Success(wishlists)
     end
   end
 end

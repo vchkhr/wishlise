@@ -5,15 +5,9 @@ module Wishlists
     def call(params, current_user)
       @attrs = yield validate(Contracts::Show, params.merge(user_id: current_user&.id))
 
-      @wishlist = find_wishlist
+      wishlist = Wishlist.find(@attrs[:id])
 
-      Success(@wishlist)
-    end
-
-    private
-
-    def find_wishlist
-      Wishlist.find(@attrs[:id])
+      Success(wishlist)
     end
   end
 end

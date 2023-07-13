@@ -6,8 +6,13 @@ class ProfilesController < ApplicationController
   before_action :set_current_profile, only: %i[edit complete_registration update]
 
   def show
-    redirect_to root_url, notice: 'Profile not found.' if @profile.nil?
-    @wishlists = @profile.user.wishlists.listed # TODO: Move this to the operation
+    result = Wishlists::IndexOperation.new.call(params, current_user)
+
+    if result.success?
+      @wishlists = result.value!
+    else
+      redirect_to root_path, notice: ErrorsHelper::AlertError.new.call(result)
+    end
   end
 
   def edit; end

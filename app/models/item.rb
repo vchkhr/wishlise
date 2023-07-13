@@ -8,5 +8,5 @@ class Item < ApplicationRecord
     joins(:image_blob).where(active_storage_blobs: { content_type: ActiveStorage.variable_content_types })
   }
 
-  broadcasts_to ->(item) { [ item.wishlist, :items ] }, inserts_by: :prepend
+  broadcasts_to ->(item) { [item.wishlist, :items] }, inserts_by: :prepend
 end

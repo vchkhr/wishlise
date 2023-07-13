@@ -26,7 +26,7 @@ RSpec.describe Wishlists::CreateOperation do
 
   describe 'failure' do
     context 'when param values are empty' do
-      let!(:result) { operation.call({title: "", publicity: ""}, user) }
+      let!(:result) { operation.call({ title: '', publicity: '' }, user) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy
@@ -45,7 +45,7 @@ RSpec.describe Wishlists::CreateOperation do
     end
 
     context 'when param values are invalid' do
-      let!(:result) { operation.call({title: Faker::Lorem.paragraph_by_chars, publicity: Faker::Lorem.paragraph_by_chars}, user) }
+      let!(:result) { operation.call({ title: Faker::Lorem.paragraph_by_chars, publicity: Faker::Lorem.paragraph_by_chars }, user) }
 
       it 'returns failure messages' do
         expect(result.failure?).to be_truthy

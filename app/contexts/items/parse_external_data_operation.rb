@@ -7,30 +7,21 @@ module Items
     def call(params)
       @attrs = yield validate(Contracts::ParseExternalData, params)
 
-      @item = find_item
-      @doc = parse_data
+      @item = Item.find(@attrs[:id])
+      @doc = Nokogiri::HTML.parse(URI.parse(@item.url).open)
 
       @attrs[:title] = parse_title if @item.title.blank?
       @attrs[:description] = parse_description if @item.description.blank?
       @attrs[:price] = parse_price if @item.price.blank?
       parse_image if @item.image.blank?
 
-      update_item
-
-      update_wishlist
+      @item.update(@attrs.merge(is_being_parsed: false))
+      @item.wishlist.update(updated_at: Time.zone.now)
 
       Success(@item)
     end
 
     private
-
-    def find_item
-      Item.find(@attrs[:id])
-    end
-
-    def parse_data
-      Nokogiri::HTML.parse(URI.parse(@item.url).open)
-    end
 
     def parse_title
       title = @doc.xpath('//*[@data-name]/@data-name').first ||
@@ -87,14 +78,6 @@ module Items
       image_url = @doc.xpath("//meta[@property='og:image']/@content").first
       image = image_url.nil? ? '' : URI.parse(image_url.text.strip).open
       update_image(image, image_url) if image.present? && image.content_type.in?(%w[image/jpeg image/png]) && image.size <= 5.megabytes
-    end
-
-    def update_item
-      @item.update(@attrs.merge(is_being_parsed: false))
-    end
-
-    def update_wishlist
-      @item.wishlist.update(updated_at: Time.zone.now)
     end
   end
 end
