@@ -4,13 +4,13 @@ RSpec.describe Wishlists::IndexOperation do
   subject(:operation) { described_class.new }
 
   let(:user) { create(:user) }
-  let(:profile) { create(:profile, user: user) }
+  let(:profile) { create(:profile, user:) }
   let(:guest) { create(:user) }
   let(:anonymous) { nil }
 
-  let!(:wishlists_listed) { create_list(:wishlist, 3, publicity: 'listed', user: user) }
-  let!(:wishlists_by_link) { create_list(:wishlist, 3, publicity: 'by_link', user: user) }
-  let!(:wishlists_hidden) { create_list(:wishlist, 3, publicity: 'hidden', user: user) }
+  let!(:wishlists_listed) { create_list(:wishlist, 3, publicity: 'listed', user:) }
+  let!(:wishlists_by_link) { create_list(:wishlist, 3, publicity: 'by_link', user:) }
+  let!(:wishlists_hidden) { create_list(:wishlist, 3, publicity: 'hidden', user:) }
 
   describe 'success' do
     context 'when current guest requests their wishlists' do

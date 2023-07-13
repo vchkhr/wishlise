@@ -7,9 +7,9 @@ RSpec.describe Wishlists::ShowOperation do
   let(:guest) { create(:user) }
   let(:anonymous) { nil }
 
-  let(:wishlist_listed) { create(:wishlist, publicity: 'listed', user: user) }
-  let(:wishlist_by_link) { create(:wishlist, publicity: 'by_link', user: user) }
-  let(:wishlist_hidden) { create(:wishlist, publicity: 'hidden', user: user) }
+  let(:wishlist_listed) { create(:wishlist, publicity: 'listed', user:) }
+  let(:wishlist_by_link) { create(:wishlist, publicity: 'by_link', user:) }
+  let(:wishlist_hidden) { create(:wishlist, publicity: 'hidden', user:) }
 
   describe 'success' do
     context 'when user requests listed wishlist' do
